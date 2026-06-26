@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Суши Шторм — Доставка суши, роллов и пиццы в Кабардинке | 8 (929) 854-11-44</title>
+<meta name="description" content="Доставка суши, роллов и пиццы в Кабардинке за 60 минут. Роллы на 20% больше, честные цены. Заказ онлайн или по телефону 8 (929) 854-11-44. Ежедневно 10:00–23:00.">
+<meta name="keywords" content="доставка суши Кабардинка, роллы Кабардинка, пицца Кабардинка, суши шторм, заказать суши">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Суши Шторм — Доставка в Кабардинке">
+<meta property="og:description" content="Суши, роллы и пицца с доставкой за 60 минут. Роллы на 20% больше. Ежедневно 10:00–23:00.">
+<meta property="og:image" content="https://kabardinka.sushi-storm.ru/image/cache/catalog/kabardinkaphoto26g/photo_2026-05-26_16-44-51-228x228.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230d0d0d'/%3E%3Ctext x='50' y='50' font-size='52' text-anchor='middle' dominant-baseline='central'%3E🍣%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0d0d;--surface:#161616;--card:#1e1e1e;--border:rgba(255,255,255,0.07);
+  --gold:#f0b429;--gold2:#e09820;--red:#d63b2f;
+  --text:#f2ede4;--muted:#7a7570;--subtle:#2a2520;
+  --nav-h:68px;--radius:10px;
+}
+/* LIGHT THEME */
+body.light{
+  --bg:#f5f0e8;--surface:#fff;--card:#f0ebe0;--border:rgba(0,0,0,0.09);
+  --text:#1a1610;--muted:#7a7060;--subtle:#e8e0d0;
+}
+body.light .nav{background:rgba(245,240,232,0.96)}
+body.light .mobile-nav{background:var(--bg)}
+body.light .hero-right::before{background:linear-gradient(90deg,var(--bg) 0%,transparent 35%)}
+body.light .cart-count{background:#1a1610;color:var(--gold)}
+body.light .feat-card{background:#fff}
+body.light .dish-card{background:#fff}
+body.light .modal{background:#fff}
+body.light .form-input,body.light .form-select,body.light .form-textarea{background:#f5f0e8;color:var(--text)}
+body.light img{background:#e8e0d0}
+body.light .chat-bubble.bot{background:#fff;border:1px solid var(--border)}
+body.light .hero-sub{color:rgba(26,22,16,.6)}
+body.light .nav-logo img{background:transparent;box-shadow:none;padding:0}
+body.light .chat-input-row input{background:#f5f0e8;color:var(--text)}
+/* Светлая тема: карусель акций + промо-карточки (две колонки) */
+body.light .hslide--gold{background:linear-gradient(135deg,#fff6e2,#fcecca)}
+body.light .hslide--red{background:linear-gradient(135deg,#fdeae6,#f7d6d0)}
+body.light .hslide-text{color:rgba(26,22,16,.62)}
+body.light .hslide-deco{color:#1a1610;opacity:.06}
+body.light .hslide-dot{background:rgba(0,0,0,.18)}
+body.light .promo-card.dark{background:linear-gradient(135deg,#fff6e2,#fcecca)}
+body.light .promo-card.red{background:linear-gradient(135deg,#fdeae6,#f7d6d0)}
+
+/* THEME TOGGLE */
+.theme-btn{background:var(--card);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.theme-btn:hover{border-color:rgba(240,180,41,.4)}
+
+/* CHAT WIDGET */
+.chat-fab{position:fixed;bottom:24px;right:24px;z-index:400;width:56px;height:56px;border-radius:50%;background:var(--gold);color:#000;border:none;cursor:pointer;font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(240,180,41,.45);transition:all .3s}
+.chat-fab:hover{transform:scale(1.08)}
+.chat-fab-badge{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;font-size:10px;font-weight:900;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;border:2px solid var(--bg)}
+.chat-fab-badge.show{display:flex}
+.chat-window{position:fixed;bottom:90px;right:24px;z-index:400;width:360px;max-width:calc(100vw - 32px);background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.4);display:flex;flex-direction:column;overflow:hidden;transform:scale(0.9) translateY(20px);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1);transform-origin:bottom right}
+.chat-window.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+.chat-head{background:var(--gold);padding:14px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.chat-head-avatar{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:18px}
+.chat-head-info{flex:1}
+.chat-head-name{font-weight:700;font-size:14px;color:#000;line-height:1.2}
+.chat-head-status{font-size:11px;color:rgba(0,0,0,.55);display:flex;align-items:center;gap:4px;margin-top:2px}
+.online-dot{width:6px;height:6px;border-radius:50%;background:#2a7a2a}
+.chat-close-btn{background:none;border:none;color:rgba(0,0,0,.45);font-size:18px;cursor:pointer;line-height:1;padding:2px}
+.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:260px;max-height:340px;scrollbar-width:thin}
+.chat-bubble{max-width:82%;padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.55;animation:bubbleIn .2s ease}
+@keyframes bubbleIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.chat-bubble.bot{background:var(--card);color:var(--text);border-radius:4px 12px 12px 12px;align-self:flex-start}
+.chat-bubble.user{background:var(--gold);color:#000;border-radius:12px 4px 12px 12px;align-self:flex-end;font-weight:500}
+.chat-bubble.typing{display:flex;gap:5px;align-items:center;padding:12px 16px;width:60px}
+.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:typDot 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typDot{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+.chat-sender{font-size:10px;color:var(--muted);margin-bottom:2px;padding:0 2px}
+.chat-time{font-size:10px;color:var(--muted);margin-top:3px;text-align:right}
+.chat-quick{display:flex;flex-wrap:wrap;gap:6px;padding:8px 14px;border-top:1px solid var(--border)}
+.chat-qbtn{font-size:11px;padding:5px 10px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap}
+.chat-qbtn:hover{border-color:var(--gold);color:var(--gold)}
+.chat-input-row{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--border)}
+.chat-input-row input{flex:1;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;font-family:'Manrope',sans-serif;outline:none;transition:border-color .2s}
+.chat-input-row input:focus{border-color:rgba(240,180,41,.5)}
+.chat-input-row input::placeholder{color:var(--muted)}
+.chat-send{background:var(--gold);color:#000;border:none;width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.chat-send:hover{background:var(--gold2)}
+
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
+a{color:inherit;text-decoration:none}
+button{font-family:'Manrope',sans-serif;cursor:pointer;border:none;outline:none}
+img{display:block;max-width:100%;background:#1a1a1a}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:rgba(13,13,13,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:16px}
+.nav-logo{display:inline-flex;align-items:center;flex-shrink:0;text-decoration:none;line-height:0}
+.nav-logo img{height:32px;width:auto;display:block;padding:7px 13px;border-radius:10px;background:#f6f1e8;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.nav-links{display:flex;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-link{padding:8px 14px;border-radius:6px;font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap;transition:all .2s;background:none;border:none;cursor:pointer}
+.nav-link:hover,.nav-link.active{background:var(--card);color:var(--text)}
+.nav-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-phone{font-size:12px;font-weight:600;color:var(--gold);white-space:nowrap}
+.cart-btn{position:relative;background:var(--gold);color:#000;font-weight:700;font-size:13px;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s;white-space:nowrap}
+.cart-btn:hover{background:var(--gold2)}
+.cart-count{background:#000;color:var(--gold);font-size:11px;font-weight:900;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.burger{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;padding:4px;flex-shrink:0}
+.user-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:13px;padding:9px 14px;border-radius:8px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.user-btn:hover{color:var(--text);border-color:rgba(255,255,255,.15)}
+
+/* MOBILE NAV */
+.mobile-nav{position:fixed;inset:0;z-index:300;background:var(--bg);transform:translateX(-100%);transition:transform .3s ease;padding:calc(var(--nav-h) + 20px) 24px 40px;display:flex;flex-direction:column;gap:6px;overflow-y:auto}
+.mobile-nav.open{transform:none}
+.mobile-nav-link{padding:16px;border-radius:8px;font-size:15px;font-weight:600;color:var(--muted);border:none;background:none;cursor:pointer;text-align:left;transition:all .2s;border-bottom:1px solid var(--border);width:100%}
+.mobile-nav-link:hover{color:var(--text);background:var(--card)}
+.mobile-phone{margin-top:20px;text-align:center;color:var(--gold);font-size:20px;font-weight:700;font-family:'Unbounded',sans-serif;padding:16px}
+
+/* HERO */
+.hero{margin-top:var(--nav-h);min-height:calc(100vh - var(--nav-h));display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.hero-left{padding:60px 48px;display:flex;flex-direction:column;justify-content:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(240,180,41,0.1);border:1px solid rgba(240,180,41,0.25);color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:28px;width:fit-content}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.8s infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'Unbounded',sans-serif;font-size:clamp(30px,4vw,58px);font-weight:900;line-height:1.06;letter-spacing:-.02em;margin-bottom:20px}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero-sub{font-size:16px;line-height:1.75;color:rgba(242,237,228,.55);max-width:420px;font-weight:300;margin-bottom:36px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+.btn-gold{background:var(--gold);color:#000;font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;letter-spacing:.05em;padding:15px 28px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;display:inline-block;text-align:center}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--text);font-size:14px;font-weight:500;padding:14px 22px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .2s;display:inline-block;text-align:center}
+.btn-outline:hover{border-color:rgba(255,255,255,.25)}
+.hero-stats{display:flex;gap:32px}
+.hstat .num{font-family:'Unbounded',sans-serif;font-size:26px;font-weight:900;color:var(--gold)}
+.hstat .lbl{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.04em}
+.hero-quick{margin-top:34px}
+.hero-quick-label{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.hero-quick-row{display:flex;flex-wrap:wrap;gap:10px}
+.hero-chip{font-size:14px;font-weight:600;padding:10px 18px;border-radius:24px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.hero-chip:hover{border-color:var(--gold);color:var(--gold);background:rgba(240,180,41,.07)}
+.hero-right{position:relative;overflow:hidden}
+.hero-right::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,transparent 35%);z-index:1;pointer-events:none}
+.hero-img{width:100%;height:100%;object-fit:cover}
+.hero-kanji{position:absolute;bottom:20px;right:20px;font-size:160px;opacity:.04;color:#fff;z-index:0;line-height:1;pointer-events:none;user-select:none}
+/* Карусель акций в hero */
+.promo-slider{position:absolute;inset:0;z-index:2}
+.hslide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .9s ease;pointer-events:none}
+.hslide.is-active{opacity:1;visibility:visible;pointer-events:auto}
+.hslide--gold{background:linear-gradient(135deg,#140e00,#1f1600)}
+.hslide--red{background:linear-gradient(135deg,#160403,#240707)}
+.hslide-visual{position:relative;flex:1 1 54%;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(240,180,41,.05),transparent)}
+.hslide--red .hslide-visual{background:linear-gradient(135deg,rgba(214,59,47,.06),transparent)}
+.hslide-photo{width:100%;height:100%;object-fit:cover}
+.hslide-svg{width:74%;max-height:76%;height:auto}
+.hslide-deco{display:none;font-size:190px;line-height:1;opacity:.08;color:var(--gold);user-select:none;pointer-events:none}
+.hslide-visual.no-photo .hslide-deco{display:block}
+.hslide-body{flex:0 0 auto;padding:24px 40px 52px;position:relative;border-top:1px solid var(--border)}
+.hslide-tag{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.hslide--gold .hslide-tag{color:var(--gold)}
+.hslide--red .hslide-tag{color:#e8675a}
+.hslide-title{font-family:'Unbounded',sans-serif;font-size:clamp(20px,2.1vw,30px);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin-bottom:12px;max-width:11em}
+.hslide-text{font-size:14.5px;line-height:1.6;color:rgba(242,237,228,.6);font-weight:300;max-width:26em;margin-bottom:22px}
+.hslide-pill{display:inline-block;font-size:12px;font-weight:600;padding:7px 18px;border-radius:20px}
+.hslide--gold .hslide-pill{border:1px solid rgba(240,180,41,.3);color:var(--gold);background:rgba(240,180,41,.08)}
+.hslide--red .hslide-pill{border:1px solid rgba(214,59,47,.3);color:#e8675a;background:rgba(214,59,47,.08)}
+.hslide-dots{position:absolute;left:40px;bottom:22px;display:flex;gap:8px;z-index:3}
+.hslide-dot{width:8px;height:8px;padding:0;border:none;border-radius:50%;cursor:pointer;background:rgba(255,255,255,.22);transition:width .3s,background .3s,border-radius .3s}
+.hslide-dot.is-active{width:22px;border-radius:4px;background:var(--gold)}
+@media (prefers-reduced-motion:reduce){.hslide{transition:none}}
+
+/* SECTIONS */
+.section{padding:64px 20px}
+.section-inner{max-width:1200px;margin:0 auto}
+.sec-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.sec-title{font-family:'Unbounded',sans-serif;font-size:clamp(20px,2.5vw,32px);font-weight:700;line-height:1.15;margin-bottom:32px}
+.features-bg{background:var(--surface)}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.feat-card{background:var(--surface);padding:28px 22px;transition:background .2s}
+.feat-card:hover{background:#1c1c1c}
+.feat-icon{width:48px;height:48px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;background:rgba(240,180,41,.1);border:1px solid rgba(240,180,41,.22);border-radius:10px}
+.feat-icon svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat-title{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;margin-bottom:8px;line-height:1.35}
+.feat-text{font-size:12px;color:var(--muted);line-height:1.7}
+
+/* CATEGORY NAV */
+.cat-nav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:32px;padding-bottom:4px}
+.cat-nav::-webkit-scrollbar{display:none}
+.cat-btn{flex-shrink:0;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.cat-btn:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
+.cat-btn.active{background:var(--gold);color:#000;border-color:var(--gold)}
+
+/* MENU GRID */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.dish-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s;display:flex;flex-direction:column}
+.dish-card:hover{transform:translateY(-4px);border-color:rgba(240,180,41,.3)}
+.dish-img-wrap{overflow:hidden;position:relative;height:190px;flex-shrink:0;background:#1a1a1a}
+.dish-img{width:100%;height:190px;object-fit:cover;transition:transform .4s}
+.dish-card:hover .dish-img{transform:scale(1.05)}
+.dish-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;z-index:2}
+.badge-hit{background:#c8850a;color:#fff}
+.badge-new{background:#2a6e35;color:#fff}
+.dish-body{padding:16px;flex:1;display:flex;flex-direction:column}
+.dish-name{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;margin-bottom:6px;line-height:1.35}
+.dish-weight{font-size:11px;color:var(--muted);background:var(--subtle);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.dish-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.dish-price{font-family:'Unbounded',sans-serif;font-size:17px;font-weight:900;color:var(--gold)}
+.add-dish-btn{background:rgba(240,180,41,.12);border:1px solid rgba(240,180,41,.3);color:var(--gold);width:34px;height:34px;border-radius:8px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1;flex-shrink:0}
+.add-dish-btn:hover,.add-dish-btn.added{background:var(--gold);color:#000}
+
+/* PROMO */
+.promo-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:14px}
+.promo-card{border-radius:var(--radius);padding:36px 32px;position:relative;overflow:hidden;border:1px solid var(--border)}
+.promo-card.dark{background:linear-gradient(135deg,#1a1200,#251a00)}
+.promo-card.red{background:linear-gradient(135deg,#1a0504,#2a0808)}
+.promo-deco{position:absolute;right:-10px;bottom:-20px;font-size:140px;opacity:.05;line-height:1;user-select:none}
+.promo-tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.promo-title{font-family:'Unbounded',sans-serif;font-size:clamp(16px,1.8vw,22px);font-weight:700;line-height:1.2;margin-bottom:10px}
+.promo-text{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:22px;max-width:340px}
+.promo-pill{display:inline-block;font-size:11px;font-weight:600;padding:6px 16px;border-radius:20px;border:1px solid rgba(240,180,41,.3);color:var(--gold);background:rgba(240,180,41,.08)}
+
+/* DELIVERY MAP */
+.delivery-inner{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:start}
+#delivery-map{height:420px;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
+.deliv-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:14px}
+.deliv-block-title{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;margin-bottom:14px}
+.deliv-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.deliv-row:last-child{border:none}
+.deliv-row .lbl{color:var(--muted)}
+.deliv-row .val{font-weight:600}
+.deliv-row .free{color:#4caf50}
+.zone-legend{display:flex;flex-direction:column;gap:10px}
+.zone-item{display:flex;align-items:center;gap:10px;font-size:13px}
+.zone-dot{width:13px;height:13px;border-radius:50%;flex-shrink:0}
+
+/* CONTACTS */
+.contacts-inner{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px}
+.contact-card-title{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;margin-bottom:20px}
+.contact-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px}
+.contact-row:last-child{margin-bottom:0}
+.c-icon{width:38px;height:38px;background:rgba(240,180,41,.1);border:1px solid rgba(240,180,41,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.c-label{font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.c-value{font-weight:600;font-size:14px}
+.c-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-width:580px;max-height:92vh;overflow-y:auto;padding:28px 24px;transform:translateY(100%);transition:transform .35s cubic-bezier(.25,.8,.25,1)}
+.modal-overlay.open .modal{transform:none}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.modal-title{font-family:'Unbounded',sans-serif;font-size:17px;font-weight:700}
+.modal-tabs{display:flex;gap:4px}
+.modal-tab{padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;background:none;border:none;color:var(--muted)}
+.modal-tab.active{background:var(--gold);color:#000}
+.modal-close{background:var(--card);border:1px solid var(--border);color:var(--muted);width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{color:var(--text)}
+
+/* CART */
+.cart-empty{text-align:center;padding:40px 0;color:var(--muted)}
+.cart-empty .icon{font-size:48px;margin-bottom:12px}
+.cart-items{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.cart-item{background:var(--card);border-radius:8px;padding:12px;display:flex;gap:12px;align-items:center}
+.cart-item-img{width:56px;height:56px;border-radius:8px;object-fit:cover;flex-shrink:0;background:#222}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:13px;font-weight:600;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cart-item-price{font-size:13px;color:var(--gold);font-weight:700}
+.cart-item-controls{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.qty-btn{width:28px;height:28px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.qty-btn:hover{border-color:var(--gold);color:var(--gold)}
+.qty-num{font-size:13px;font-weight:700;min-width:18px;text-align:center}
+.cart-total{background:var(--card);border-radius:8px;padding:14px;margin-bottom:16px}
+.cart-total-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
+.cart-total-row.big{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:700;color:var(--gold);padding-top:10px;margin-top:8px;border-top:1px solid var(--border)}
+.cart-clear-btn{display:block;width:100%;margin-top:10px;padding:11px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;cursor:pointer;transition:border-color .2s,color .2s;font-family:'Manrope',sans-serif}
+.cart-clear-btn:hover{border-color:var(--red);color:var(--red)}
+.free-delivery-bar{background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.25);border-radius:8px;padding:10px 14px;font-size:12px;color:#4caf50;margin-bottom:14px;text-align:center}
+
+/* ORDER & AUTH FORM */
+.form-body{display:flex;flex-direction:column;gap:13px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.form-input,.form-select,.form-textarea{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'Manrope',sans-serif;outline:none;transition:border-color .2s;width:100%}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:rgba(240,180,41,.5)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--muted)}
+.form-select option{background:var(--surface)}
+.form-textarea{resize:vertical;min-height:72px}
+.pay-methods{display:flex;gap:8px;flex-wrap:wrap}
+.pay-btn{flex:1;min-width:100px;padding:10px 8px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s;text-align:center}
+.pay-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(240,180,41,.08)}
+.pay-info{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5;background:rgba(240,180,41,.05);border:1px solid rgba(240,180,41,.18);border-radius:8px;padding:9px 12px}
+.submit-btn{background:var(--gold);color:#000;font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;padding:16px;border-radius:10px;border:none;cursor:pointer;width:100%;transition:all .2s;margin-top:6px}
+.submit-btn:hover{background:var(--gold2)}
+.form-divider{text-align:center;font-size:12px;color:var(--muted);padding:4px 0}
+.ord-seg{display:flex;gap:8px;margin-bottom:2px}
+.ord-seg button{flex:1;padding:11px 8px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.ord-seg button.active{border-color:var(--gold);color:var(--gold);background:rgba(240,180,41,.08)}
+.ord-hint{font-size:12px;color:var(--muted);background:rgba(240,180,41,.06);border:1px solid rgba(240,180,41,.18);border-radius:8px;padding:9px 12px;line-height:1.5}
+.cutlery-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cut-btn{width:42px;height:42px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:15px;font-weight:600;cursor:pointer;transition:all .2s}
+.cut-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(240,180,41,.08)}
+.cut-input{width:64px;height:42px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:15px;text-align:center;outline:none;font-family:'Manrope',sans-serif}
+.cut-input.active{border-color:var(--gold);color:var(--gold)}
+.cut-check{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);cursor:pointer;margin-top:10px}
+.cut-check input{accent-color:var(--gold);width:16px;height:16px}
+.form-link{color:var(--gold);cursor:pointer;text-decoration:underline;font-size:13px;text-align:center;margin-top:4px}
+
+/* SUCCESS */
+.order-success{text-align:center;padding:16px 0}
+.success-icon{font-size:60px;margin-bottom:14px}
+.success-title{font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;margin-bottom:10px}
+.success-text{color:var(--muted);font-size:14px;line-height:1.75}
+.success-num{font-family:'Unbounded',sans-serif;font-size:28px;font-weight:900;color:var(--gold);margin:16px 0 4px}
+.success-num-lbl{font-size:12px;color:var(--muted)}
+
+/* USER MENU */
+.user-info{background:var(--card);border-radius:10px;padding:20px;margin-bottom:16px;text-align:center}
+.user-avatar{width:60px;height:60px;border-radius:50%;background:rgba(240,180,41,.15);border:2px solid rgba(240,180,41,.3);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px}
+.user-name{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:700;margin-bottom:4px}
+.user-email{font-size:12px;color:var(--muted)}
+.user-orders{display:flex;flex-direction:column;gap:8px}
+.user-order-item{background:var(--card);border-radius:8px;padding:14px;border:1px solid var(--border)}
+.uoi-top{display:flex;justify-content:space-between;margin-bottom:6px}
+.uoi-num{font-size:12px;font-weight:700;color:var(--gold)}
+.uoi-date{font-size:11px;color:var(--muted)}
+.uoi-items{font-size:12px;color:var(--muted);margin-bottom:6px}
+.uoi-total{font-size:13px;font-weight:700}
+.uoi-status{font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(76,175,80,.15);color:#4caf50}
+.logout-btn{width:100%;margin-top:16px;padding:12px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;cursor:pointer;transition:all .2s}
+.logout-btn:hover{color:var(--red);border-color:var(--red)}
+
+/* FOOTER */
+.footer{background:var(--surface);border-top:1px solid var(--border);padding:32px 20px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:900}
+.footer-logo span{color:var(--gold)}
+.footer-copy{font-size:12px;color:var(--muted)}
+.footer-links{display:flex;gap:18px}
+.footer-links a{font-size:12px;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--text)}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--card);border:1px solid rgba(240,180,41,.35);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:600;z-index:600;transition:transform .3s;white-space:nowrap;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast span{color:var(--gold)}
+
+/* RESPONSIVE */
+@media(min-width:1024px){.nav-phone{display:block}}
+@media(max-width:960px){
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .promo-grid{grid-template-columns:1fr}
+  .delivery-inner{grid-template-columns:1fr}
+  .contacts-inner{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-phone{display:none!important}
+  .burger{display:block}
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:36px 20px 32px}
+  .hero-right{height:340px}
+  .hslide-body{padding:14px 22px 38px}
+  .hslide-dots{left:22px;bottom:14px}
+  .hslide-tag{margin-bottom:7px}
+  .hslide-title{font-size:18px;margin-bottom:7px}
+  .hslide-text{font-size:12.5px;line-height:1.5;margin-bottom:0}
+  .hslide-pill{display:none}
+  .hslide-svg{width:62%;max-height:84%}
+  .hslide-deco{font-size:120px}
+  .hero-stats{gap:18px}
+  .menu-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
+  .dish-img-wrap,.dish-img{height:150px}
+  .form-row{grid-template-columns:1fr}
+  .modal{padding:22px 16px}
+  #delivery-map{height:300px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:28px}
+  .feat-grid{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column}
+  .btn-gold,.btn-outline{width:100%;text-align:center;display:block}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="#" aria-label="Суши Шторм — на главную"><img src="img/logo.png" alt="Суши Шторм"></a>
+  <div class="nav-links">
+    <button class="nav-link" onclick="navScroll('menu-section')">Меню</button>
+    <button class="nav-link" onclick="navScroll('promo-section')">Акции</button>
+    <button class="nav-link" onclick="navScroll('delivery-section')">Доставка</button>
+    <button class="nav-link" onclick="navScroll('contacts-section')">Контакты</button>
+  </div>
+  <div class="nav-actions">
+    <span class="nav-phone">8 (929) 854-11-44</span>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Сменить тему">🌙</button>
+    <button class="user-btn" onclick="openUserModal()" id="userNavBtn">👤 Войти</button>
+    <button class="cart-btn" onclick="openCartModal()">
+      🛒 <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="burger" id="burgerBtn" onclick="toggleMobile()">☰</button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-link" onclick="navScroll('menu-section');toggleMobile()">🍣 Меню</button>
+  <button class="mobile-nav-link" onclick="navScroll('promo-section');toggleMobile()">🎁 Акции</button>
+  <button class="mobile-nav-link" onclick="navScroll('delivery-section');toggleMobile()">🚴 Доставка</button>
+  <button class="mobile-nav-link" onclick="navScroll('contacts-section');toggleMobile()">📞 Контакты</button>
+  <button class="mobile-nav-link" onclick="openUserModal();toggleMobile()">👤 Личный кабинет</button>
+  <button class="mobile-nav-link" onclick="openCartModal();toggleMobile()">🛒 Корзина (<span id="cartCountMobile">0</span>)</button>
+  <div class="mobile-phone">8 (929) 854-11-44</div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge"><span class="pulse"></span> Доставка в Кабардинке</div>
+    <h1>Японская кухня<br>с <em>душой</em><br>и вкусом</h1>
+    <p class="hero-sub">Роллы на 20% больше, пицца на 30% щедрее — без наценок и хитростей. Горячая доставка за 60 минут ежедневно.</p>
+    <div class="hero-btns">
+      <button class="btn-gold" onclick="navScroll('menu-section')">Смотреть меню →</button>
+      <a href="tel:89298541144" class="btn-outline">☎ Позвонить</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num">+20%</div><div class="lbl">Размер роллов</div></div>
+      <div class="hstat"><div class="num">60 мин</div><div class="lbl">Доставка</div></div>
+      <div class="hstat"><div class="num">10–23</div><div class="lbl">Ежедневно</div></div>
+    </div>
+    <div class="hero-quick">
+      <span class="hero-quick-label">Быстрый выбор</span>
+      <div class="hero-quick-row">
+        <button class="hero-chip" onclick="goToMenu('sets')">🎁 Сеты</button>
+        <button class="hero-chip" onclick="goToMenu('rolls')">🌀 Роллы</button>
+        <button class="hero-chip" onclick="goToMenu('baked')">🔥 Запечённые</button>
+        <button class="hero-chip" onclick="goToMenu('pizza')">🍕 Пицца</button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-kanji">嵐</div>
+    <div class="promo-slider" id="heroSlider" role="region" aria-roledescription="карусель" aria-label="Акции">
+      <article class="hslide hslide--gold is-active">
+        <div class="hslide-visual">
+          <img class="hslide-photo" src="img/4440074.jpg" alt="Сет «Запечённый микс»" loading="lazy"
+               onerror="this.onerror=null;this.style.display='none';this.parentNode.classList.add('no-photo')">
+          <span class="hslide-deco">誕</span>
+        </div>
+        <div class="hslide-body">
+          <span class="hslide-tag">⭐ Акция</span>
+          <h3 class="hslide-title">Сет в подарок имениннику</h3>
+          <p class="hslide-text">В ваш день рождения сет «Запечённый микс» в подарок при заказе от 1500 ₽.</p>
+          <span class="hslide-pill">🎂 Подарок именинникам</span>
+        </div>
+      </article>
+      <article class="hslide hslide--red">
+        <div class="hslide-visual">
+          <svg class="hslide-svg" viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="gStart" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffd97a"/><stop offset="1" stop-color="#e0941a"/>
+              </linearGradient>
+            </defs>
+            <g opacity="0.55" stroke="url(#gStart)" stroke-width="6" stroke-linecap="round">
+              <line x1="14" y1="86" x2="58" y2="86"/>
+              <line x1="6" y1="112" x2="46" y2="112"/>
+              <line x1="18" y1="138" x2="54" y2="138"/>
+            </g>
+            <text x="196" y="128" text-anchor="middle" font-family="'Unbounded',sans-serif" font-weight="900" font-size="74" letter-spacing="1" fill="url(#gStart)">START</text>
+            <rect x="96" y="150" width="200" height="6" rx="3" fill="url(#gStart)" opacity="0.85"/>
+            <text x="196" y="190" text-anchor="middle" font-family="'Unbounded',sans-serif" font-weight="700" font-size="17" letter-spacing="9" fill="#e0941a">ПРОМОКОД</text>
+          </svg>
+        </div>
+        <div class="hslide-body">
+          <span class="hslide-tag">🎁 Промокод</span>
+          <h3 class="hslide-title">Ролл в подарок к первому заказу</h3>
+          <p class="hslide-text">Назовите промокод СТАРТ при подтверждении заказа — и мы добавим ролл «Калифорния кунжут» или «Бонито». Заказ от 1500 ₽.</p>
+          <span class="hslide-pill">Для новых клиентов</span>
+        </div>
+      </article>
+      <article class="hslide hslide--gold">
+        <div class="hslide-visual">
+          <svg class="hslide-svg" viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="gPlus" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffd97a"/><stop offset="1" stop-color="#e0941a"/>
+              </linearGradient>
+            </defs>
+            <circle cx="180" cy="100" r="92" fill="none" stroke="url(#gPlus)" stroke-width="3" opacity="0.25" stroke-dasharray="6 9"/>
+            <text x="180" y="124" text-anchor="middle" font-family="'Unbounded',sans-serif" font-weight="900" font-size="80" fill="url(#gPlus)">+20%</text>
+            <text x="180" y="178" text-anchor="middle" font-family="'Unbounded',sans-serif" font-weight="700" font-size="18" letter-spacing="7" fill="#e0941a">БОЛЬШЕ</text>
+          </svg>
+        </div>
+        <div class="hslide-body">
+          <span class="hslide-tag">📏 Честный размер</span>
+          <h3 class="hslide-title">Роллы +20%, пицца +30%</h3>
+          <p class="hslide-text">Порции крупнее обычного — без наценок и хитростей. Наедаемся, а не разглядываем.</p>
+          <span class="hslide-pill">Всегда в меню</span>
+        </div>
+      </article>
+      <article class="hslide hslide--gold">
+        <div class="hslide-visual">
+          <svg class="hslide-svg" viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+               fill="none" stroke="url(#gDel)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+              <linearGradient id="gDel" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffd97a"/><stop offset="1" stop-color="#e0941a"/>
+              </linearGradient>
+            </defs>
+            <circle cx="104" cy="158" r="26"/>
+            <circle cx="262" cy="158" r="26"/>
+            <path d="M104 158 H150 L172 116 H214"/>
+            <path d="M150 158 H262"/>
+            <path d="M214 116 L238 78 H266"/>
+            <rect x="64" y="86" width="62" height="50" rx="7"/>
+            <path d="M64 106 H126"/>
+            <g opacity="0.45"><path d="M20 112 H54"/><path d="M12 138 H42"/></g>
+          </svg>
+        </div>
+        <div class="hslide-body">
+          <span class="hslide-tag">🚗 Доставка</span>
+          <h3 class="hslide-title">Бесплатно по Кабардинке</h3>
+          <p class="hslide-text">Привезём горячим примерно за час, ежедневно 10:00–23:00. Самовывоз — от любой суммы.</p>
+          <span class="hslide-pill">По Кабардинке</span>
+        </div>
+      </article>
+      <div class="hslide-dots" id="heroDots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features-bg">
+  <div class="section-inner">
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 7.5v9M7.5 12h9" opacity="0.5"/></svg></div><div class="feat-title">Большие порции</div><div class="feat-text">Роллы +20%, пицца +30% — честный размер</div></div>
+      <div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13.5h6L11 22l8.5-11.5h-6L13 2z"/></svg></div><div class="feat-title">Быстрая доставка</div><div class="feat-text">~60 минут до вашей двери, горячим</div></div>
+      <div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 3C7 3 3.5 6 3 10.5L12 21l9-10.5C20.5 6 17 3 12 3z"/><circle cx="9" cy="9.5" r="0.8" fill="currentColor"/><circle cx="14.5" cy="8" r="0.8" fill="currentColor"/><circle cx="12" cy="13" r="0.8" fill="currentColor"/></svg></div><div class="feat-title">Пицца из Италии</div><div class="feat-text">Тонкое тесто по древним рецептам</div></div>
+      <div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M2.5 10h19"/><path d="M6.5 14.5h4"/></svg></div><div class="feat-title">Любая оплата</div><div class="feat-text">Карты, наличные, онлайн — как удобно</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section" id="menu-section">
+  <div class="section-inner">
+    <div class="sec-label">Каталог</div>
+    <div class="sec-title">Меню</div>
+    <div class="cat-nav" id="catNav">
+      <button class="cat-btn active" onclick="filterMenu('all',this)">🍽 Все</button>
+      <button class="cat-btn" onclick="filterMenu('sets',this)">🎁 Сеты</button>
+      <button class="cat-btn" onclick="filterMenu('rolls',this)">🌀 Роллы</button>
+      <button class="cat-btn" onclick="filterMenu('baked',this)">🔥 Запечённые</button>
+      <button class="cat-btn" onclick="filterMenu('tempura',this)">🍤 Темпурные</button>
+      <button class="cat-btn" onclick="filterMenu('mini',this)">🥢 Мини роллы</button>
+      <button class="cat-btn" onclick="filterMenu('sushi',this)">🍣 Суши</button>
+      <button class="cat-btn" onclick="filterMenu('pizza',this)">🍕 Пицца</button>
+      <button class="cat-btn" onclick="filterMenu('salads',this)">🥗 Салаты</button>
+      <button class="cat-btn" onclick="filterMenu('hot',this)">🍟 Горячее</button>
+      <button class="cat-btn" onclick="filterMenu('soupmussels',this)">🦪 Супы и мидии</button>
+      <button class="cat-btn" onclick="filterMenu('desserts',this)">🍰 Десерты</button>
+      <button class="cat-btn" onclick="filterMenu('drinks',this)">🥤 Напитки</button>
+      <button class="cat-btn" onclick="filterMenu('sauces',this)">🧂 Соусы</button>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- PROMO -->
+<section class="section features-bg" id="promo-section">
+  <div class="section-inner">
+    <div class="sec-label">Акции</div>
+    <div class="sec-title">Выгода и подарки</div>
+    <div class="promo-grid">
+      <div class="promo-card dark">
+        <div class="promo-deco">誕</div>
+        <div class="promo-tag">⭐ Акция</div>
+        <div class="promo-title">Сет «Запечённый микс» в подарок на день рождения</div>
+        <div class="promo-text">Мы помним ваш праздник! Имениннику — сет «Запечённый микс» в подарок при заказе от 1500 ₽. Отмечайте вкусно с Суши Шторм!</div>
+        <div class="promo-pill">🎂 Подарок именинникам</div>
+      </div>
+      <div class="promo-card red">
+        <div class="promo-deco">贈</div>
+        <div class="promo-tag" style="color:#e8675a">🎁 Подарок</div>
+        <div class="promo-title">Промокод СТАРТ для первого заказа</div>
+        <div class="promo-text">Назовите промокод СТАРТ при подтверждении заказа — и мы добавим ролл «Калифорния кунжут» или «Бонито» в подарок. Первый заказ от 1500 ₽.</div>
+        <div class="promo-pill" style="border-color:rgba(214,59,47,.3);color:#e8675a;background:rgba(214,59,47,.08)">Для новых клиентов</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section class="section" id="delivery-section">
+  <div class="section-inner">
+    <div class="sec-label">Зона доставки</div>
+    <div class="sec-title">Доставляем по Кабардинке</div>
+    <div class="delivery-inner">
+      <div id="delivery-map">
+        <iframe src="https://yandex.ru/map-widget/v1/?mode=search&oid=109118275643&ol=biz&z=17"
+                width="100%" height="100%" style="border:0;display:block" frameborder="0"
+                allowfullscreen loading="lazy" title="Суши Шторм — Кабардинка, Октябрьская 5"></iframe>
+      </div>
+      <div>
+        <div class="deliv-block">
+          <div class="deliv-block-title">📦 Условия доставки</div>
+          <div class="deliv-row"><span class="lbl">Минимальный заказ</span><span class="val">1200 ₽</span></div>
+          <div class="deliv-row"><span class="lbl">Доставка по Кабардинке</span><span class="val free">Бесплатно</span></div>
+          <div class="deliv-row"><span class="lbl">Самовывоз</span><span class="val free">от любой суммы</span></div>
+          <div class="deliv-row"><span class="lbl">Время доставки</span><span class="val">~60 мин</span></div>
+          <div class="deliv-row"><span class="lbl">Работаем</span><span class="val">10:00 – 23:00</span></div>
+        </div>
+        <div class="deliv-block">
+          <div class="deliv-block-title">🗺 Куда доставляем</div>
+          <div class="zone-legend">
+            <div class="zone-item"><div class="zone-dot" style="background:#4CAF50"></div>Кабардинка — бесплатно</div>
+            <div class="zone-item"><div class="zone-dot" style="background:#FF9800"></div>Сухумское шоссе 1, 2, 2А, 62 — 100 ₽</div>
+            <div class="zone-item"><div class="zone-dot" style="background:#FF9800"></div>ул. Мира 1–4 — 100 ₽</div>
+            <div class="zone-item"><div class="zone-dot" style="background:#FF9800"></div>ул. Капитана Котанова — 100 ₽</div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-top:12px;line-height:1.6">По Кабардинке доставка бесплатная. Самовывоз — от любой суммы. По другим адресам уточняйте по телефону.</div>
+        </div>
+        <div class="deliv-block" style="margin-bottom:0">
+          <a href="tel:89298541144" style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;color:var(--gold);display:block;margin-bottom:6px">8 (929) 854-11-44</a>
+          <div style="font-size:12px;color:var(--muted)">Или оформите заказ через корзину на сайте</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section class="section features-bg" id="contacts-section">
+  <div class="section-inner">
+    <div class="sec-label">Контакты</div>
+    <div class="sec-title">Свяжитесь с нами</div>
+    <div class="contacts-inner">
+      <div class="contact-card">
+        <div class="contact-card-title">📍 Кабардинка</div>
+        <div class="contact-row"><div class="c-icon">📞</div><div><div class="c-label">Телефон</div><div class="c-value">8 (929) 854-11-44</div><div class="c-sub">Ежедневно 10:00 – 23:00</div></div></div>
+        <div class="contact-row"><div class="c-icon">🕐</div><div><div class="c-label">Режим работы</div><div class="c-value">10:00 — 23:00</div><div class="c-sub">Без выходных</div></div></div>
+        <div class="contact-row"><div class="c-icon">📍</div><div><div class="c-label">Регион</div><div class="c-value">Кабардинка</div><div class="c-sub">Краснодарский край</div></div></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-title">🌊 Геленджик — второй филиал</div>
+        <div class="contact-row"><div class="c-icon">🔗</div><div><div class="c-label">Сайт</div><a href="https://sushi-storm.ru" target="_blank" style="color:var(--gold);font-weight:600;font-size:14px">sushi-storm.ru</a><div class="c-sub">Страница геленджикского филиала</div></div></div>
+        <div class="contact-row"><div class="c-icon">ℹ️</div><div><div class="c-label">О нас</div><div class="c-value">Суши Шторм</div><div class="c-sub">Без лишней наценки — больше вкуса</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">СУШИ <span>ШТОРМ</span> · КАБАРДИНКА</div>
+    <div class="footer-links">
+      <a onclick="navScroll('menu-section')">Меню</a>
+      <a onclick="navScroll('delivery-section')">Доставка</a>
+      <a onclick="navScroll('contacts-section')">Контакты</a>
+      <a href="/privacy.html">Политика конфиденциальности</a>
+      <a href="/oferta.html">Публичная оферта</a>
+    </div>
+    <div class="footer-copy">© 2025–2026 Суши Шторм. Ежедневно 10:00–23:00 · <a onclick="showStaffMenu()" style="cursor:pointer;text-decoration:underline">Сотрудникам</a></div>
+  </div>
+</footer>
+
+<!-- UNIVERSAL MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Корзина</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- CHAT FAB -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()">
+  💬
+  <span class="chat-fab-badge" id="chatBadge">1</span>
+</button>
+
+<!-- CHAT WINDOW -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-head">
+    <div class="chat-head-avatar">🍣</div>
+    <div class="chat-head-info">
+      <div class="chat-head-name">Поддержка Суши Шторм</div>
+      <div class="chat-head-status"><span class="online-dot"></span>Онлайн · отвечаем быстро</div>
+    </div>
+    <button class="chat-close-btn" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-quick" id="chatQuick">
+    <button class="chat-qbtn" onclick="chatQuickSend('Статус моего заказа')">📦 Статус заказа</button>
+    <button class="chat-qbtn" onclick="chatQuickSend('Сколько ждать доставку?')">⏱ Время доставки</button>
+    <button class="chat-qbtn" onclick="chatQuickSend('Какой состав у ролла?')">🍣 Состав блюда</button>
+    <button class="chat-qbtn" onclick="chatQuickSend('Хочу отменить заказ')">❌ Отменить заказ</button>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="Напишите сообщение..." onkeydown="if(event.key==='Enter')sendChatMsg()">
+    <button class="chat-send" onclick="sendChatMsg()">➤</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">Добавлено: <span id="toastName"></span></div>
+
+<script src="menu.js"></script>
+<script>
+
+function getDishes() { return (window.MENU && window.MENU.length) ? window.MENU : []; }
+
+let cart = [];
+const MIN_ORDER = 1200;      // минимальная сумма заказа, ₽
+const FREE_DELIVERY = 1200;  // бесплатная доставка от этой суммы, ₽
+const DELIVERY_FEE = 100;    // стоимость доставки ниже порога, ₽
+const WORK_OPEN = 10;        // открытие, час (МСК)
+const WORK_CLOSE = 23;       // закрытие, час (МСК)
+// Час в Москве независимо от часового пояса посетителя
+function moscowHour(){
+  try {
+    var s = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Moscow', hour: '2-digit', hour12: false }).format(new Date());
+    var h = parseInt(s, 10);
+    return h === 24 ? 0 : h;
+  } catch(e) {
+    return new Date().getHours(); // запасной вариант, если Intl недоступен
+  }
+}
+function isOpenNow(){ const h = moscowHour(); return h >= WORK_OPEN && h < WORK_CLOSE; }
+let currentUser = null;
+let currentCat = 'all';      // активная категория меню
+
+// ─── NAVIGATION ───
+function navScroll(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.pageYOffset - 80;
+  window.scrollTo({top, behavior:'smooth'});
+}
+
+function toggleMobile() {
+  const nav = document.getElementById('mobileNav');
+  const btn = document.getElementById('burgerBtn');
+  const open = nav.classList.toggle('open');
+  btn.textContent = open ? '✕' : '☰';
+}
+
+// ─── MENU ───
+function renderMenu(cat) {
+  const grid = document.getElementById('menuGrid');
+  const list = cat === 'all' ? getDishes() : getDishes().filter(d => d.cat === cat);
+  if (!list.length) { grid.innerHTML = '<p style="color:var(--muted);padding:20px 0">Блюда в этой категории появятся скоро</p>'; return; }
+  grid.innerHTML = list.map(d => `
+    <div class="dish-card">
+      <div class="dish-img-wrap" onclick="openDishModal(${d.id})" style="cursor:pointer">
+        <img class="dish-img" src="${d.img}" alt="${esc(d.name)}" loading="lazy" onerror="this.onerror=null;this.src=this.dataset.ph" data-ph="${d.ph||''}">
+        ${d.badge ? `<span class="dish-badge badge-${d.badge}">${{hit:'Хит',new:'Новинка'}[d.badge]||''}</span>` : ''}
+      </div>
+      <div class="dish-body">
+        <div class="dish-name" onclick="openDishModal(${d.id})" style="cursor:pointer">${esc(d.name)}</div>
+        ${d.weight ? `<div class="dish-weight">${esc(d.weight)}</div>` : ''}
+        <div class="dish-footer">
+          <span class="dish-price">${d.price} ₽</span>
+          <button class="add-dish-btn" id="addbtn-${d.id}" onclick="addToCart(${d.id})">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openDishModal(id) {
+  const d = getDishes().find(x => x.id === id);
+  if (!d) return;
+  document.getElementById('modalTitle').textContent = '';
+  document.getElementById('modalContent').innerHTML = `
+    <div style="margin:-8px 0 0">
+      <img src="${d.img}" alt="${esc(d.name)}" onerror="this.onerror=null;this.src=this.dataset.ph" data-ph="${d.ph||''}" style="width:100%;height:240px;object-fit:cover;border-radius:12px;margin-bottom:18px">
+      <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;margin-bottom:8px">${esc(d.name)}</div>
+      ${d.weight ? `<div style="display:inline-block;font-size:12px;color:var(--muted);background:var(--subtle);padding:4px 12px;border-radius:6px;margin-bottom:16px">${esc(d.weight)}</div>` : ''}
+      <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Состав</div>
+      <div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:24px">${esc(d.desc || '')}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+        <span style="font-family:'Unbounded',sans-serif;font-size:24px;font-weight:900;color:var(--gold)">${d.price} ₽</span>
+        <button class="submit-btn" style="width:auto;margin:0;padding:14px 32px" onclick="addToCart(${d.id});closeModal()">В корзину +</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function filterMenu(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMenu(cat);
+}
+
+// Быстрый переход из hero: подсветить категорию, отрендерить, проскроллить
+function goToMenu(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(function(b){
+    var oc = b.getAttribute('onclick') || '';
+    b.classList.toggle('active', oc.indexOf("'" + cat + "'") !== -1);
+  });
+  renderMenu(cat);
+  navScroll('menu-section');
+}
+
+// ─── CART ───
+function addToCart(id) {
+  const d = getDishes().find(x => x.id === id);
+  const ex = cart.find(x => x.id === id);
+  if (ex) ex.qty++;
+  else cart.push({...d, qty:1});
+  updateCount();
+  showToast(d.name);
+  const btn = document.getElementById('addbtn-'+id);
+  if (btn) { btn.textContent='✓'; btn.classList.add('added'); setTimeout(()=>{btn.textContent='+';btn.classList.remove('added')},1200); }
+}
+
+function updateCount() {
+  const n = cart.reduce((s,x)=>s+x.qty,0);
+  document.getElementById('cartCount').textContent = n;
+  const m = document.getElementById('cartCountMobile');
+  if (m) m.textContent = n;
+}
+
+function changeQty(id, d) {
+  const it = cart.find(x=>x.id===id);
+  if (!it) return;
+  it.qty += d;
+  if (it.qty <= 0) cart = cart.filter(x=>x.id!==id);
+  updateCount();
+  renderCartContent();
+}
+
+// ─── MODAL ───
+function openCartModal() {
+  document.getElementById('modalTitle').textContent = '🛒 Корзина';
+  renderCartContent();
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function renderCartContent() {
+  const el = document.getElementById('modalContent');
+  if (!cart.length) {
+    el.innerHTML = `<div class="cart-empty"><div class="icon">🛒</div><p>Корзина пуста</p><p style="font-size:12px;margin-top:8px;color:var(--muted)">Выберите блюда из меню</p></div>`;
+    return;
+  }
+  const sub = cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const SERVICE_FEE = 49;
+  const deliv = sub >= FREE_DELIVERY ? 0 : DELIVERY_FEE;
+  const total = sub + deliv + SERVICE_FEE;
+  const left = sub < FREE_DELIVERY ? FREE_DELIVERY - sub : 0;
+  el.innerHTML = `
+    ${left > 0 ? `<div class="free-delivery-bar">До бесплатной доставки ещё <b>${left} ₽</b></div>` : '<div class="free-delivery-bar">🎉 Доставка бесплатна!</div>'}
+    <div class="cart-items">
+      ${cart.map(c=>`
+        <div class="cart-item">
+          <img class="cart-item-img" src="${c.img}" alt="${c.name}" onerror="this.onerror=null;this.src=this.dataset.ph" data-ph="${c.ph||''}">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${c.name}</div>
+            <div class="cart-item-price">${c.price*c.qty} ₽</div>
+          </div>
+          <div class="cart-item-controls">
+            <button class="qty-btn" onclick="changeQty(${c.id},-1)">−</button>
+            <span class="qty-num">${c.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${c.id},1)">+</button>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="cart-total">
+      <div class="cart-total-row"><span>Сумма</span><span>${sub} ₽</span></div>
+      <div class="cart-total-row"><span>Доставка</span><span>${deliv===0?'<span style="color:#4caf50">Бесплатно</span>':deliv+' ₽'}</span></div>
+      <div class="cart-total-row"><span>Сервисный сбор</span><span>${SERVICE_FEE} ₽</span></div>
+      <div class="cart-total-row big"><span>Итого</span><span>${total} ₽</span></div>
+    </div>
+    ${!isOpenNow()
+      ? `<div style="background:rgba(214,59,47,.08);border:1px solid rgba(214,59,47,.25);border-radius:8px;padding:10px 14px;font-size:12px;color:#e8675a;text-align:center;margin-bottom:10px">🌙 Сейчас мы закрыты. Приём заказов с ${WORK_OPEN}:00 до ${WORK_CLOSE}:00 МСК. Можно собрать корзину — оформите утром!</div>
+         <button class="submit-btn" style="opacity:.5;cursor:not-allowed" disabled>Оформить заказ →</button>`
+      : sub < MIN_ORDER
+      ? `<div style="background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.25);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--gold);text-align:center;margin-bottom:10px">Минимум для доставки — ${MIN_ORDER} ₽ (добавьте ещё на ${MIN_ORDER - sub} ₽). Самовывоз — от любой суммы.</div>
+         <button class="submit-btn" onclick="showOrderForm()">Оформить заказ →</button>`
+      : `<button class="submit-btn" onclick="showOrderForm()">Оформить заказ →</button>`}
+    <button class="cart-clear-btn" onclick="clearCart()">🗑 Очистить корзину</button>
+  `;
+}
+
+function clearCart() {
+  if (!cart.length) return;
+  if (!confirm('Очистить корзину полностью?')) return;
+  cart = [];
+  updateCount();
+  renderCartContent();
+}
+
+function showOrderForm() {
+  document.getElementById('modalTitle').textContent = '📋 Оформление заказа';
+  window._pay = 'card';
+  window._omode = 'delivery';
+  window._cutlery = 1;
+  window._noCutlery = false;
+  const a = (currentUser && currentUser.address) || {};
+  window._form = {
+    name: currentUser ? (currentUser.name || '') : '',
+    phone: currentUser ? (currentUser.phone || '') : '',
+    addr: a.street || '', entry: a.entry || '', floor: a.floor || '',
+    preorder: '', comment: ''
+  };
+  renderOrderForm();
+}
+
+function renderOrderForm() {
+  const f = window._form;
+  const mode = window._omode;
+  const noCut = window._noCutlery;
+  const cut = window._cutlery;
+  const presets = [1,2,3,4,5,6];
+  const sub = cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const shortDelivery = (mode === 'delivery' && sub < MIN_ORDER);
+  const hint = (mode === 'pickup')
+    ? '<div class="ord-hint">🥡 Заберёте сами: Кабардинка, Октябрьская 5. Самовывоз — от любой суммы.</div>'
+    : shortDelivery
+    ? `<div class="ord-hint" style="color:#e8675a;background:rgba(214,59,47,.08);border-color:rgba(214,59,47,.28)">⚠️ В корзине ${sub} ₽ — для доставки нужно от ${MIN_ORDER} ₽. Добавьте ещё на ${MIN_ORDER - sub} ₽ или переключитесь на самовывоз.</div>`
+    : (f.addr ? '<div class="ord-hint">📍 Подставлен сохранённый адрес из профиля</div>' : '');
+  document.getElementById('modalContent').innerHTML = `
+    <div class="form-body">
+      <div class="ord-seg">
+        <button class="${mode==='delivery'?'active':''}" onclick="setOmode('delivery')">🚴 Доставка</button>
+        <button class="${mode==='pickup'?'active':''}" onclick="setOmode('pickup')">🥡 Самовывоз</button>
+      </div>
+      ${hint}
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Имя</label><input class="form-input" id="fo-name" placeholder="Иван" type="text" value="${esc(f.name)}"></div>
+        <div class="form-group"><label class="form-label">Телефон</label><input class="form-input" id="fo-phone" placeholder="+7 (___) ___-__-__" type="tel" value="${esc(f.phone)}"></div>
+      </div>
+      ${mode==='delivery' ? `
+      <div class="form-group"><label class="form-label">Адрес доставки</label><input class="form-input" id="fo-addr" placeholder="ул. Садовая, д. 12" type="text" value="${esc(f.addr)}"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Подъезд</label><input class="form-input" id="fo-entry" placeholder="1" type="text" value="${esc(f.entry)}"></div>
+        <div class="form-group"><label class="form-label">Этаж / кв.</label><input class="form-input" id="fo-floor" placeholder="3, кв. 15" type="text" value="${esc(f.floor)}"></div>
+      </div>` : ''}
+      <div class="form-group">
+        <label class="form-label">Количество приборов</label>
+        <div class="cutlery-row" style="${noCut?'opacity:.4;pointer-events:none':''}">
+          ${presets.map(n=>`<button class="cut-btn ${!noCut&&cut===n?'active':''}" onclick="setCutlery(${n})">${n}</button>`).join('')}
+          <input class="cut-input ${!noCut&&presets.indexOf(cut)===-1?'active':''}" id="fo-cut-custom" type="number" min="1" max="50" inputmode="numeric" placeholder="…" value="${presets.indexOf(cut)===-1?cut:''}" oninput="setCutleryCustom(this.value)">
+        </div>
+        <label class="cut-check"><input type="checkbox" id="fo-nocut" ${noCut?'checked':''} onchange="toggleNoCutlery()"><span>Без приборов</span></label>
+      </div>
+      <div class="form-group"><label class="form-label">Предзаказ ко времени <span style="text-transform:none;letter-spacing:0;color:var(--muted)">(необязательно)</span></label><input class="form-input" id="fo-preorder" type="time" value="${esc(f.preorder)}"></div>
+      <div class="form-group"><label class="form-label">Способ оплаты</label>
+        <div class="pay-methods">
+          <button class="pay-btn ${window._pay==='card'?'active':''}" id="p-card" onclick="selPay('card')">💳 Оплатить онлайн</button>
+          <button class="pay-btn ${window._pay==='later'?'active':''}" id="p-later" onclick="selPay('later')">💵 ${mode==='pickup'?'Оплатить при получении':'Оплатить при доставке'}</button>
+        </div>
+        ${window._pay==='later' ? `<div class="pay-info">${mode==='pickup'
+            ? 'При получении можно: наличными, по QR-коду или картой через терминал.'
+            : 'При доставке можно: наличными или по QR-коду курьеру.'}</div>` : ''}
+      </div>
+      <div class="form-group"><label class="form-label">Комментарий</label><textarea class="form-textarea" id="fo-comment" placeholder="Без острого, домофон не работает...">${esc(f.comment)}</textarea></div>
+      <label style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted);cursor:pointer;margin-top:4px">
+        <input type="checkbox" id="fo-consent" checked style="margin-top:3px;accent-color:var(--gold);width:16px;height:16px;flex-shrink:0">
+        <span>Я согласен на обработку персональных данных в соответствии с <a href="/privacy.html" target="_blank" style="color:var(--gold)">политикой конфиденциальности</a> и принимаю условия <a href="/oferta.html" target="_blank" style="color:var(--gold)">публичной оферты</a></span>
+      </label>
+      <button class="submit-btn" ${shortDelivery?'disabled style="opacity:.5;cursor:not-allowed"':''} onclick="submitOrder()">${shortDelivery ? `Минимум для доставки — ${MIN_ORDER} ₽` : (window._pay==='card' ? 'Оплатить онлайн →' : 'Подтвердить заказ 🎉')}</button>
+    </div>
+  `;
+}
+
+// Сохраняем введённые значения перед перерисовкой формы
+function _saveFormState() {
+  const f = window._form; if (!f) return;
+  ['name','phone','addr','entry','floor','preorder','comment'].forEach(function(k){
+    const e = document.getElementById('fo-' + k);
+    if (e) f[k] = e.value;
+  });
+}
+
+function setOmode(m) { _saveFormState(); window._omode = m; renderOrderForm(); }
+function setCutlery(n) { _saveFormState(); window._cutlery = n; window._noCutlery = false; renderOrderForm(); }
+function setCutleryCustom(v) {
+  var n = parseInt(v, 10);
+  if (n > 0) { window._cutlery = n; window._noCutlery = false; }
+  document.querySelectorAll('.cut-btn').forEach(function(b){ b.classList.remove('active'); });
+}
+function toggleNoCutlery() { _saveFormState(); window._noCutlery = document.getElementById('fo-nocut').checked; renderOrderForm(); }
+function persons(n) {
+  n = Math.abs(n) % 100; var n1 = n % 10;
+  if (n > 10 && n < 20) return 'персон';
+  if (n1 > 1 && n1 < 5) return 'персоны';
+  if (n1 === 1) return 'персона';
+  return 'персон';
+}
+
+function selPay(m) { _saveFormState(); window._pay = m; renderOrderForm(); }
+
+function submitOrder() {
+  const name = document.getElementById('fo-name').value.trim();
+  const phone = document.getElementById('fo-phone').value.trim();
+  const addr = document.getElementById('fo-addr').value.trim();
+  if (!name || !phone || !addr) { alert('Заполните имя, телефон и адрес'); return; }
+  const sub = cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const deliv = sub >= FREE_DELIVERY ? 0 : DELIVERY_FEE;
+  const ordNum = 'SS-' + Math.floor(Math.random()*9000+1000);
+  if (currentUser) {
+    recordOrder({num:ordNum, items:cart.map(c=>c.name).join(', '), itemIds:cart.map(c=>({id:c.id,qty:c.qty})), total:sub+deliv, status:'Принят'});
+  }
+  document.getElementById('modalContent').innerHTML = `
+    <div class="order-success">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">Заказ принят!</div>
+      <div class="success-num">${ordNum}</div>
+      <div class="success-num-lbl">Номер вашего заказа</div>
+      <div class="success-text" style="margin-top:16px">
+        Спасибо, <b>${esc(name)}</b>!<br>
+        Заказ на <b>${sub+deliv} ₽</b> принят в обработку.<br>
+        Перезвоним на <b>${esc(phone)}</b> в течение 5 минут.<br><br>
+        Ожидайте доставку ~60 минут 🚴
+      </div>
+      <button class="submit-btn" style="margin-top:24px" onclick="closeModal()">Отлично!</button>
+    </div>
+  `;
+  cart = []; updateCount();
+}
+
+// ─── SECURITY UTILS ───
+// Экранирование HTML — защита от XSS
+function esc(str) {
+  return String(str == null ? '' : str)
+    .split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;')
+    .split('"').join('&quot;').split("'").join('&#39;');
+}
+
+// ─── Серверные аккаунты ───
+// Хеширование пароля и лимиты входа теперь на сервере; в браузере — только вызовы API.
+function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
+function validPhone(p) { return /^[\d\s\+\-\(\)]{10,18}$/.test(p); }
+
+// Запрос к API. Cookie-сессия ходит автоматически.
+async function apiJson(method, url, body) {
+  const opt = { method: method, headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin' };
+  if (body !== undefined) opt.body = JSON.stringify(body);
+  const r = await fetch(url, opt);
+  let d = {};
+  try { d = await r.json(); } catch (e) {}
+  return { status: r.status, data: d };
+}
+
+// Подтянуть текущего пользователя по cookie-сессии (при загрузке страницы).
+async function refreshSession() {
+  try {
+    const res = await apiJson('GET', '/api/auth/me');
+    if (res.data && res.data.user) { currentUser = res.data.user; updateUserNav(); }
+    else { currentUser = null; }
+  } catch (e) { currentUser = null; }
+}
+
+// Добавить заказ в историю на сервере (если клиент вошёл).
+async function recordOrder(order) {
+  if (!currentUser) return;
+  try {
+    const res = await apiJson('POST', '/api/account/orders', order);
+    if (res.data && res.data.user) { currentUser = res.data.user; }
+  } catch (e) {}
+}
+
+// ─── AUTH ───
+function openUserModal() {
+  if (currentUser) { showProfile(); }
+  else { showLogin(); }
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+// Меню для сотрудников: переход в кассу (киоск) или админ-панель.
+// Обе страницы защищены паролем на сервере (Vercel Basic Auth) — без него не откроются.
+function showStaffMenu() {
+  document.getElementById('modalTitle').textContent = '🔐 Вход для сотрудников';
+  document.getElementById('modalContent').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:12px;padding:4px 0">
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:2px">Служебные разделы защищены паролем. Браузер попросит логин и пароль перед открытием.</p>
+      <a class="submit-btn" href="/kiosk.html" style="text-decoration:none;text-align:center;display:block">🖥 Касса (киоск)</a>
+      <a class="submit-btn" href="/site-admin.html" style="text-decoration:none;text-align:center;display:block;background:transparent;border:1px solid var(--gold);color:var(--gold)">🍽 Меню сайта (цены, наличие)</a>
+      <a class="submit-btn" href="/admin.html" style="text-decoration:none;text-align:center;display:block;background:transparent;border:1px solid var(--border);color:var(--muted)">⚙️ Админка киоска</a>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function showLogin() {
+  document.getElementById('modalTitle').textContent = '👤 Вход';
+  document.getElementById('modalContent').innerHTML = `
+    <div class="form-body">
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="a-email" placeholder="ivan@mail.ru" type="text" autocomplete="username"></div>
+      <div class="form-group"><label class="form-label">Пароль</label><input class="form-input" id="a-pass" placeholder="••••••••" type="password" autocomplete="current-password"></div>
+      <button class="submit-btn" onclick="doLogin()">Войти</button>
+      <div class="form-divider">или</div>
+      <div class="form-link" onclick="showRegister()">Зарегистрироваться →</div>
+    </div>
+  `;
+}
+
+function showRegister() {
+  document.getElementById('modalTitle').textContent = '📝 Регистрация';
+  document.getElementById('modalContent').innerHTML = `
+    <div class="form-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Имя</label><input class="form-input" id="r-name" placeholder="Иван" type="text" maxlength="50"></div>
+        <div class="form-group"><label class="form-label">Телефон</label><input class="form-input" id="r-phone" placeholder="+7..." type="tel" maxlength="18"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="r-email" placeholder="ivan@mail.ru" type="email" autocomplete="email"></div>
+      <div class="form-group"><label class="form-label">Пароль</label><input class="form-input" id="r-pass" placeholder="Минимум 8 символов" type="password" autocomplete="new-password"></div>
+      <div class="form-group"><label class="form-label">Повторите пароль</label><input class="form-input" id="r-pass2" placeholder="••••••••" type="password" autocomplete="new-password"></div>
+      <div style="font-size:11px;color:var(--muted)">Пароль: минимум 8 символов, буквы и цифры</div>
+      <button class="submit-btn" onclick="doRegister()">Создать аккаунт</button>
+      <div class="form-link" onclick="showLogin()">← Уже есть аккаунт</div>
+    </div>
+  `;
+}
+
+async function doLogin() {
+  const email = document.getElementById('a-email').value.trim();
+  const pass = document.getElementById('a-pass').value;
+  if (!email || !pass) { alert('Введите email и пароль'); return; }
+
+  const emailLower = email.toLowerCase();
+
+  // ─── Вход сотрудника (киоск) ───
+  // Если ввели не email (например, «admin») — это вход сотрудника, проверяем на сервере.
+  if (!validEmail(emailLower)) {
+    try {
+      const r = await fetch('/api/admin-login', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ login: email.trim(), pass })
+      });
+      const d = await r.json().catch(function(){ return {}; });
+      if (d && d.ok) { sessionStorage.setItem('kiosk_ok', '1'); window.location.href = '/kiosk.html'; return; }
+      if (d && d.error === 'not_configured') { alert('Вход для сотрудников не настроен. Задайте ADMIN_PASS в настройках.'); return; }
+      if (d && d.error === 'too_many') { alert('Слишком много попыток. Подождите минуту.'); return; }
+    } catch (e) {}
+    alert('Неверный логин или пароль'); return;
+  }
+
+  // ─── Вход клиента (сервер) ───
+  const res = await apiJson('POST', '/api/auth/login', { email: emailLower, pass: pass });
+  if (res.status === 429) { alert('Слишком много попыток. Подождите минуту.'); return; }
+  if (res.status !== 200 || !res.data.user) { alert('Неверный email или пароль'); return; }
+  currentUser = res.data.user;
+  updateUserNav();
+  showProfile();
+}
+
+async function doRegister() {
+  const name = document.getElementById('r-name').value.trim();
+  const phone = document.getElementById('r-phone').value.trim();
+  const email = document.getElementById('r-email').value.trim().toLowerCase();
+  const pass = document.getElementById('r-pass').value;
+  const pass2 = document.getElementById('r-pass2').value;
+
+  if (!name || !email || !pass) { alert('Заполните все поля'); return; }
+  if (name.length < 2) { alert('Имя слишком короткое'); return; }
+  if (!validEmail(email)) { alert('Некорректный email'); return; }
+  if (phone && !validPhone(phone)) { alert('Некорректный телефон'); return; }
+  if (pass !== pass2) { alert('Пароли не совпадают'); return; }
+  if (pass.length < 8) { alert('Пароль минимум 8 символов'); return; }
+  if (!/[a-zA-Zа-яА-Я]/.test(pass) || !/\d/.test(pass)) { alert('Пароль должен содержать буквы и цифры'); return; }
+
+  const res = await apiJson('POST', '/api/auth/register', { name: name, phone: phone, email: email, pass: pass });
+  if (res.status === 409) { alert('Аккаунт с таким email уже существует'); return; }
+  if (res.status === 429) { alert('Слишком много попыток. Подождите минуту.'); return; }
+  if (res.status !== 200 || !res.data.user) { alert('Не удалось создать аккаунт. Попробуйте позже.'); return; }
+  currentUser = res.data.user;
+  updateUserNav();
+  showProfile();
+}
+
+async function doLogout() {
+  try { await apiJson('POST', '/api/auth/logout'); } catch (e) {}
+  currentUser = null;
+  document.getElementById('userNavBtn').textContent = '👤 Войти';
+  closeModal();
+}
+
+function updateUserNav() {
+  const btn = document.getElementById('userNavBtn');
+  if (currentUser) btn.textContent = '👤 ' + currentUser.name.split(' ')[0];
+  else btn.textContent = '👤 Войти';
+}
+
+function showProfile() {
+  document.getElementById('modalTitle').textContent = '👤 Личный кабинет';
+  const orders = (currentUser.orders || []).slice(0,5);
+  document.getElementById('modalContent').innerHTML = `
+    <div class="user-info">
+      <div class="user-avatar">👤</div>
+      <div class="user-name">${esc(currentUser.name)}</div>
+      <div class="user-email">${esc(currentUser.email)}</div>
+    </div>
+    <div style="font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;margin-bottom:12px">История заказов</div>
+    <div class="user-orders">
+      ${orders.length ? orders.map(o=>`
+        <div class="user-order-item">
+          <div class="uoi-top"><span class="uoi-num">${o.num}</span><span class="uoi-status">${o.status}</span></div>
+          <div class="uoi-date">${o.date}</div>
+          <div class="uoi-items">${esc(o.items)}</div>
+          <div class="uoi-total">${o.total} ₽</div>
+        </div>
+      `).join('') : '<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px 0">Заказов пока нет</div>'}
+    </div>
+    <button class="logout-btn" onclick="doLogout()">Выйти из аккаунта</button>
+  `;
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
+function showToast(name) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastName').textContent = name;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+
+// ─── THEME ───
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('themeBtn').textContent = isLight ? '☀️' : '🌙';
+  localStorage.setItem('ss_theme', isLight ? 'light' : 'dark');
+}
+(function initTheme() {
+  const t = localStorage.getItem('ss_theme');
+  if (t === 'light') {
+    document.body.classList.add('light');
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = '☀️';
+  }
+})();
+
+// ─── CHAT ───
+const CHAT_BOT_NAME = 'Суши Шторм';
+let chatOpen = false;
+let chatHistory = []; // { role, text, time }
+
+// Заглушка — сюда подключишь Telegram webhook
+async function sendToOperator(text) {
+  // TODO: заменить на реальный запрос к боту
+  // await fetch('https://ваш-сервер/tg-webhook', {
+  //   method: 'POST',
+  //   headers: {'Content-Type':'application/json'},
+  //   body: JSON.stringify({ text, user: currentUser?.name || 'Гость', time: new Date().toISOString() })
+  // });
+  console.log('[TG заглушка] Сообщение оператору:', text);
+
+  // Пока возвращаем авто-ответ
+  return getAutoReply(text);
+}
+
+function getAutoReply(text) {
+  const t = text.toLowerCase();
+  if (t.includes('статус') || t.includes('заказ') || t.includes('где'))
+    return 'Ваш заказ принят и передан на кухню! Курьер выедет в течение 20–30 минут 🚴 Если хотите уточнить детали — позвоните: 8 (929) 854-11-44';
+  if (t.includes('доставк') || t.includes('ждать') || t.includes('сколько'))
+    return 'Среднее время доставки по Кабардинке — 60 минут. В час пик может быть чуть дольше. Следим за каждым заказом! ⏱';
+  if (t.includes('отмен'))
+    return 'Для отмены заказа позвоните нам: 8 (929) 854-11-44. Отменить можно в течение 10 минут после оформления ❌';
+  if (t.includes('состав') || t.includes('ингред') || t.includes('аллерг'))
+    return 'Расскажите какое блюдо вас интересует — уточним состав! Также можно позвонить на кухню: 8 (929) 854-11-44 🍣';
+  if (t.includes('привет') || t.includes('здравств') || t.includes('добр'))
+    return 'Привет! 👋 Рады видеть вас в Суши Шторм. Чем можем помочь?';
+  if (t.includes('спасиб'))
+    return 'Пожалуйста! Будем рады снова видеть вас в Суши Шторм 🎉';
+  return 'Спасибо за обращение! Оператор ответит вам в ближайшее время. Срочные вопросы — по телефону: 8 (929) 854-11-44 📞';
+}
+
+function now() {
+  return new Date().toLocaleTimeString('ru', {hour:'2-digit', minute:'2-digit'});
+}
+
+function appendBubble(text, role, senderLabel) {
+  const box = document.getElementById('chatMessages');
+  if (senderLabel) {
+    const lbl = document.createElement('div');
+    lbl.className = 'chat-sender';
+    lbl.textContent = senderLabel; // textContent — безопасно
+    box.appendChild(lbl);
+  }
+  const b = document.createElement('div');
+  b.className = 'chat-bubble ' + role;
+  b.innerHTML = esc(text).replace(/\n/g,'<br>'); // экранируем перед вставкой
+  const t = document.createElement('div');
+  t.className = 'chat-time';
+  t.textContent = now();
+  b.appendChild(t);
+  box.appendChild(b);
+  box.scrollTop = box.scrollHeight;
+  return b;
+}
+
+function showTyping() {
+  const box = document.getElementById('chatMessages');
+  const b = document.createElement('div');
+  b.className = 'chat-bubble bot typing';
+  b.id = 'typingIndicator';
+  b.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+  box.appendChild(b);
+  box.scrollTop = box.scrollHeight;
+}
+
+function hideTyping() {
+  const t = document.getElementById('typingIndicator');
+  if (t) t.remove();
+}
+
+async function sendChatMsg() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  document.getElementById('chatQuick').style.display = 'none';
+
+  const userName = currentUser ? currentUser.name : 'Вы';
+  appendBubble(text, 'user', userName);
+  chatHistory.push({role:'user', text});
+
+  showTyping();
+  await new Promise(r => setTimeout(r, 900 + Math.random() * 600));
+  hideTyping();
+
+  const reply = await sendToOperator(text);
+  appendBubble(reply, 'bot', CHAT_BOT_NAME);
+  chatHistory.push({role:'bot', text: reply});
+
+  // Показать badge если чат закрыт
+  if (!chatOpen) {
+    document.getElementById('chatBadge').classList.add('show');
+  }
+}
+
+function chatQuickSend(text) {
+  document.getElementById('chatInput').value = text;
+  sendChatMsg();
+}
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open', chatOpen);
+  document.getElementById('chatFab').textContent = chatOpen ? '✕' : '💬';
+  if (chatOpen) {
+    document.getElementById('chatBadge').classList.remove('show');
+    if (chatHistory.length === 0) {
+      setTimeout(() => {
+        appendBubble('Привет! 👋 Я чат поддержки Суши Шторм.\n\nЗдесь вы можете узнать статус заказа, задать вопрос или получить помощь. Чем могу помочь?', 'bot', CHAT_BOT_NAME);
+      }, 300);
+    }
+    setTimeout(() => document.getElementById('chatInput').focus(), 350);
+  } else {
+    document.getElementById('chatFab').textContent = '💬';
+  }
+}
+
+// Показать badge через 5 сек после загрузки
+setTimeout(() => {
+  if (!chatOpen) document.getElementById('chatBadge').classList.add('show');
+}, 5000);
+
+
+// ─── PROFILE — личный кабинет с вкладками ───
+let profileTab = 'orders';
+
+function showProfile(tab) {
+  if (tab) profileTab = tab;
+  document.getElementById('modalTitle').textContent = '👤 Личный кабинет';
+  const orders = currentUser.orders || [];
+
+  document.getElementById('modalContent').innerHTML = `
+    <div style="background:var(--card);border-radius:10px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:14px">
+      <div style="width:52px;height:52px;border-radius:50%;background:rgba(240,180,41,.12);border:2px solid rgba(240,180,41,.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">👤</div>
+      <div style="min-width:0">
+        <div style="font-family:'Unbounded',sans-serif;font-size:15px;font-weight:700">${esc(currentUser.name)}</div>
+        <div style="font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis">${esc(currentUser.email)}</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:6px;margin-bottom:16px">
+      <button class="modal-tab ${profileTab==='orders'?'active':''}" onclick="showProfile('orders')">📦 Заказы</button>
+      <button class="modal-tab ${profileTab==='profile'?'active':''}" onclick="showProfile('profile')">⚙️ Профиль</button>
+      <button class="modal-tab ${profileTab==='address'?'active':''}" onclick="showProfile('address')">📍 Адрес</button>
+    </div>
+
+    <div id="profileTabContent">${renderProfileTab()}</div>
+
+    <button style="width:100%;margin-top:16px;padding:12px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;cursor:pointer;transition:all .2s" onmouseover="this.style.color='#d63b2f';this.style.borderColor='#d63b2f'" onmouseout="this.style.color='';this.style.borderColor=''" onclick="doLogout()">Выйти из аккаунта</button>
+  `;
+}
+
+function renderProfileTab() {
+  if (profileTab === 'orders') {
+    const orders = currentUser.orders || [];
+    if (!orders.length) return '<div style="color:var(--muted);font-size:13px;text-align:center;padding:24px 0">Заказов пока нет.<br>Самое время попробовать наши роллы! 🍣</div>';
+    return orders.map(o => `
+      <div style="background:var(--card);border-radius:8px;padding:12px;margin-bottom:8px;border:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+          <span style="font-size:12px;font-weight:700;color:var(--gold)">№ ${esc(String(o.num))}</span>
+          <span style="font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(76,175,80,.15);color:#4caf50">${esc(o.status)}</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">${esc(o.date)}</div>
+        <div style="font-size:12px;color:var(--muted)">${esc(o.items)}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+          <span style="font-size:13px;font-weight:700">${o.total} ₽</span>
+          <button style="font-size:11px;padding:5px 12px;border-radius:6px;border:1px solid rgba(240,180,41,.35);background:rgba(240,180,41,.08);color:var(--gold);cursor:pointer" onclick="repeatOrder(${JSON.stringify(o.itemIds || []).split('"').join('&quot;')})">↻ Повторить</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  if (profileTab === 'profile') {
+    return `
+      <div class="form-body">
+        <div class="form-group"><label class="form-label">Имя</label><input class="form-input" id="pf-name" value="${esc(currentUser.name)}" maxlength="50"></div>
+        <div class="form-group"><label class="form-label">Телефон</label><input class="form-input" id="pf-phone" value="${esc(currentUser.phone || '')}" maxlength="18" type="tel"></div>
+        <div class="form-group"><label class="form-label">Email (логин, нельзя изменить)</label><input class="form-input" value="${esc(currentUser.email)}" disabled style="opacity:.5"></div>
+        <button class="submit-btn" onclick="saveProfileInfo()">Сохранить</button>
+        <div class="form-divider"></div>
+        <div style="font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;margin-bottom:4px">Сменить пароль</div>
+        <div class="form-group"><label class="form-label">Текущий пароль</label><input class="form-input" id="pf-oldpass" type="password" autocomplete="current-password"></div>
+        <div class="form-group"><label class="form-label">Новый пароль</label><input class="form-input" id="pf-newpass" type="password" placeholder="Минимум 8 символов, буквы и цифры" autocomplete="new-password"></div>
+        <button class="submit-btn" style="background:var(--card);color:var(--text);border:1px solid var(--border)" onclick="changePassword()">Сменить пароль</button>
+      </div>
+    `;
+  }
+
+  if (profileTab === 'address') {
+    const a = currentUser.address || {};
+    return `
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Сохранённый адрес автоматически подставится при оформлении заказа</div>
+      <div class="form-body">
+        <div class="form-group"><label class="form-label">Улица, дом</label><input class="form-input" id="ad-street" value="${esc(a.street || '')}" placeholder="ул. Революционная, д. 5" maxlength="150"></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Подъезд</label><input class="form-input" id="ad-entry" value="${esc(a.entry || '')}" maxlength="10"></div>
+          <div class="form-group"><label class="form-label">Этаж / кв.</label><input class="form-input" id="ad-floor" value="${esc(a.floor || '')}" maxlength="20"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Комментарий для курьера</label><input class="form-input" id="ad-note" value="${esc(a.note || '')}" placeholder="Домофон не работает, звонить" maxlength="200"></div>
+        <button class="submit-btn" onclick="saveAddress()">Сохранить адрес</button>
+      </div>
+    `;
+  }
+  return '';
+}
+
+async function saveProfileInfo() {
+  const name = document.getElementById('pf-name').value.trim();
+  const phone = document.getElementById('pf-phone').value.trim();
+  if (!name || name.length < 2) { alert('Имя слишком короткое'); return; }
+  if (phone && !validPhone(phone)) { alert('Некорректный телефон'); return; }
+  const res = await apiJson('PATCH', '/api/account/profile', { name: name, phone: phone });
+  if (res.status !== 200 || !res.data.user) { alert('Не удалось сохранить профиль'); return; }
+  currentUser = res.data.user;
+  updateUserNav();
+  showToast('Профиль сохранён');
+}
+
+async function changePassword() {
+  const oldP = document.getElementById('pf-oldpass').value;
+  const newP = document.getElementById('pf-newpass').value;
+  if (!oldP || !newP) { alert('Заполните оба поля'); return; }
+  if (newP.length < 8 || !/[a-zA-Zа-яА-Я]/.test(newP) || !/\d/.test(newP)) { alert('Новый пароль: минимум 8 символов, буквы и цифры'); return; }
+  const res = await apiJson('POST', '/api/account/password', { oldPass: oldP, newPass: newP });
+  if (res.status === 401) { alert('Текущий пароль неверный'); return; }
+  if (res.status !== 200) { alert('Не удалось сменить пароль'); return; }
+  document.getElementById('pf-oldpass').value = '';
+  document.getElementById('pf-newpass').value = '';
+  showToast('Пароль изменён');
+}
+
+async function saveAddress() {
+  const res = await apiJson('PUT', '/api/account/address', {
+    street: document.getElementById('ad-street').value.trim(),
+    entry: document.getElementById('ad-entry').value.trim(),
+    floor: document.getElementById('ad-floor').value.trim(),
+    note: document.getElementById('ad-note').value.trim(),
+  });
+  if (res.status !== 200) { alert('Не удалось сохранить адрес'); return; }
+  currentUser.address = res.data.address;
+  showToast('Адрес сохранён');
+}
+
+function repeatOrder(itemIds) {
+  if (!Array.isArray(itemIds) || !itemIds.length) { alert('Состав этого заказа не сохранён'); return; }
+  itemIds.forEach(rec => {
+    const d = getDishes().find(x => x.id === rec.id);
+    if (d) {
+      const ex = cart.find(x => x.id === d.id);
+      if (ex) ex.qty += rec.qty; else cart.push({...d, qty: rec.qty});
+    }
+  });
+  updateCount();
+  openCartModal();
+}
+
+// Обновлённый submitOrder: режим, приборы, предзаказ, отправка во ФронтПад
+const _origSubmit = submitOrder;
+submitOrder = async function() {
+  _saveFormState();
+  const f = window._form || {};
+  const mode = window._omode || 'delivery';
+  const name = (f.name || '').trim();
+  const phone = (f.phone || '').trim();
+  const addr = mode === 'delivery' ? (f.addr || '').trim() : '';
+  const entry = (f.entry || '').trim();
+  const floor = (f.floor || '').trim();
+  const preorder = (f.preorder || '').trim();
+  const comment = (f.comment || '').trim();
+
+  if (!name || !phone) { alert('Заполните имя и телефон'); return; }
+  if (!validPhone(phone)) { alert('Некорректный телефон'); return; }
+  if (mode === 'delivery' && !addr) { alert('Укажите адрес доставки'); return; }
+  const sub = cart.reduce((s,x)=>s+x.price*x.qty,0);
+  if (mode === 'delivery' && sub < MIN_ORDER) { alert('Минимальная сумма для доставки — ' + MIN_ORDER + ' ₽. Для меньшей суммы выберите самовывоз.'); return; }
+  if (!isOpenNow()) { alert('Сейчас мы закрыты. Приём заказов с ' + WORK_OPEN + ':00 до ' + WORK_CLOSE + ':00 МСК'); return; }
+  var _consentEl = document.getElementById('fo-consent');
+  if (_consentEl ? !_consentEl.checked : !window._consentOk) { alert('Необходимо согласие на обработку персональных данных'); return; }
+  window._consentOk = true;
+
+  const SERVICE_FEE = 49;
+  const deliv = mode === 'pickup' ? 0 : (sub >= FREE_DELIVERY ? 0 : DELIVERY_FEE);
+  const total = sub + deliv + SERVICE_FEE;
+
+  // Блокируем кнопку на время отправки
+  const btn = document.querySelector('.form-body .submit-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Отправляем...'; }
+
+  // ── Примечание для кухни ──
+  const payText = window._pay === 'card'
+    ? 'онлайн картой'
+    : (mode === 'pickup'
+        ? 'при получении (наличные / QR / терминал)'
+        : 'при доставке (наличные / QR)');
+  const cutleryText = window._noCutlery ? 'без приборов' : (window._cutlery + ' ' + persons(window._cutlery));
+  const parts = [];
+  parts.push(mode === 'pickup' ? '🥡 САМОВЫВОЗ (Октябрьская 5)' : '🚴 ДОСТАВКА');
+  parts.push('Приборы: ' + cutleryText);
+  if (preorder) parts.push('⏰ Предзаказ к ' + preorder);
+  if (comment) parts.push('Коммент: ' + comment);
+  parts.push('Оплата: ' + payText);
+  parts.push('Сервисный сбор 49 ₽. Сумма по сайту: ' + total + ' ₽');
+
+  // ── Отправка во ФронтПад ──
+  let ordNum = null;
+  let errMsg = '';
+  try {
+    const r = await fetch('/api/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name, phone,
+        street: mode === 'pickup' ? 'Самовывоз (Октябрьская 5)' : addr,
+        pod: entry, et: floor,
+        descr: parts.join('. '),
+        total: total,
+        histItems: cart.map(c => ({ id: c.id, name: c.name, qty: c.qty })),
+        items: cart.map(c => ({ article: c.article, qty: c.qty }))
+      })
+    });
+    const data = await r.json().catch(function(){ return {}; });
+    if (r.ok && data.ok) {
+      ordNum = data.order_number;
+    } else {
+      errMsg = (data && data.error) ? String(data.error) : 'Не удалось оформить заказ. Попробуйте ещё раз.';
+    }
+  } catch(e) {
+    errMsg = 'Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.';
+  }
+
+  // ── Заказ НЕ оформлен: ошибка + повтор, корзину сохраняем, оплату не запускаем ──
+  if (!ordNum) {
+    document.getElementById('modalTitle').textContent = '⚠️ Заказ не оформлен';
+    document.getElementById('modalContent').innerHTML = `
+      <div style="text-align:center;padding:16px 0">
+        <div style="font-size:52px;margin-bottom:12px">😔</div>
+        <div style="font-family:'Unbounded',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px">Заказ не оформлен</div>
+        <div style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:10px">${esc(errMsg)}</div>
+        <div style="color:var(--muted);font-size:13px;line-height:1.7">Корзина сохранена. Повторите попытку или позвоните нам: <a href="tel:89298541144" style="color:var(--gold)">8 (929) 854-11-44</a></div>
+        <button class="submit-btn" style="margin-top:20px" onclick="submitOrder()">↻ Повторить заказ</button>
+        <button class="submit-btn" style="margin-top:10px;background:transparent;border:1px solid var(--border);color:var(--muted)" onclick="showOrderForm()">← Изменить данные</button>
+      </div>
+    `;
+    return;
+  }
+
+  // ── Заказ принят: сервер уже записал его в историю по cookie — перечитываем профиль ──
+  if (currentUser) { await refreshSession(); }
+
+  // ── Онлайн-оплата картой (ЮKassa) ──
+  // Если эквайринг подключён (заданы ключи на сервере) — уводим на оплату.
+  // Если ещё не подключён — заказ уже принят, мягко откатываемся на оплату при получении.
+  window._payNote = '';
+  if (window._pay === 'card') {
+    try {
+      const pr = await fetch('/api/payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: total,
+          order_id: String(ordNum),
+          description: 'Заказ № ' + ordNum + ' — Суши Шторм',
+          items: cart.map(c => ({ id: c.id, qty: c.qty })),
+          phone: phone,
+          email: (currentUser && currentUser.email) ? currentUser.email : '',
+          return_url: location.origin + '/?paid=' + encodeURIComponent(String(ordNum))
+        })
+      });
+      const pd = await pr.json().catch(function(){ return {}; });
+      if (pd && pd.ok && pd.url) { window.location.href = pd.url; return; }
+      window._payNote = (pd && pd.error === 'not_configured')
+        ? 'Онлайн-оплата скоро будет доступна — пока оплатите при получении.'
+        : 'Не удалось начать онлайн-оплату. Оплатите при получении или продублируйте по телефону.';
+    } catch (e) {
+      window._payNote = 'Не удалось начать онлайн-оплату. Оплатите при получении.';
+    }
+  }
+
+  const waitLine = mode === 'pickup'
+    ? 'Заберите заказ: Кабардинка, Октябрьская 5 🥡'
+    : 'Ожидайте доставку ~60 минут 🚴';
+  document.getElementById('modalContent').innerHTML = `
+    <div style="text-align:center;padding:16px 0">
+      <div style="font-size:56px;margin-bottom:14px">🎉</div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px">Заказ принят!</div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:26px;font-weight:900;color:var(--gold);margin:12px 0 2px">№ ${esc(String(ordNum))}</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px">Номер вашего заказа</div>
+      <div style="color:var(--muted);font-size:14px;line-height:1.75">
+        Спасибо, <b>${esc(name)}</b>!<br>
+        Заказ на <b>${total} ₽</b> принят.<br>
+        Перезвоним на <b>${esc(phone)}</b> в течение 5 минут.<br>
+        ${waitLine}${preorder ? '<br>⏰ К ' + esc(preorder) : ''}
+      </div>
+      ${window._payNote ? `<div style="margin-top:14px;background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.25);border-radius:8px;padding:12px;font-size:12px;color:var(--muted)">💳 ${esc(window._payNote)}</div>` : ''}
+      <button class="submit-btn" style="margin-top:20px" onclick="closeModal()">Отлично!</button>
+    </div>
+  `;
+  document.getElementById('modalTitle').textContent = '✅ Заказ оформлен';
+  cart = []; updateCount();
+};
+
+
+// ─── INIT ───
+function initMenu() {
+  // window.MENU мог ещё не загрузиться (menu.js грузится отдельным файлом)
+  if (window.MENU && window.MENU.length) {
+    renderMenu(currentCat || 'all');
+  } else {
+    // ждём загрузки menu.js, пробуем ещё несколько раз
+    let tries = 0;
+    const t = setInterval(function() {
+      tries++;
+      if (window.MENU && window.MENU.length) {
+        clearInterval(t);
+        renderMenu(currentCat || 'all');
+      } else if (tries > 40) { // ~4 сек
+        clearInterval(t);
+        var g = document.getElementById('menuGrid');
+        if (g) g.innerHTML = '<p style="color:var(--muted);padding:30px 0;grid-column:1/-1;text-align:center">Меню не загрузилось. Обновите страницу или позвоните: <a href="tel:89298541144" style="color:var(--gold)">8 (929) 854-11-44</a></p>';
+      }
+    }, 100);
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMenu);
+} else {
+  initMenu();
+}
+
+// ─── Меню с сервера (Supabase через /api/menu) ───
+// Если сервер настроен и ответил — берём актуальное меню оттуда.
+// Если нет (или ошибка) — тихо остаёмся на статическом menu.js.
+async function loadServerMenu() {
+  try {
+    const r = await fetch('/api/menu');
+    if (!r.ok) return;                       // 503 not_configured и т.п. — откат на menu.js
+    const data = await r.json();
+    if (!Array.isArray(data) || !data.length) return;
+    // маппинг полей БД -> формат сайта; стоп-лист (available=false) скрываем
+    window.MENU = data
+      .filter(function(d){ return d.available !== false; })
+      .map(function(d){
+        return { id:d.id, article:d.article, cat:d.cat, name:d.name, price:d.price,
+                 img:d.img, ph:d.ph, desc:d.descr, badge:d.badge || undefined };
+      });
+    renderMenu(currentCat || 'all');         // перерисовываем с серверными данными
+  } catch (e) { /* оставляем menu.js */ }
+}
+loadServerMenu();
+
+// Возврат с онлайн-оплаты Т-Банка (redirect → /?paid=НОМЕР или /?payfail=НОМЕР)
+(function paymentReturn(){
+  try {
+    var params = new URLSearchParams(location.search);
+    var paid = params.get('paid');
+    var failed = params.get('payfail');
+    if (!paid && !failed) return;
+    if (history.replaceState) history.replaceState({}, '', location.pathname);
+    setTimeout(function(){
+      if (paid) {
+        alert('Спасибо! Оплата заказа № ' + paid + ' обрабатывается. Если оплата прошла — заказ уже готовится. Чек придёт на телефон или почту.');
+      } else {
+        alert('Оплата заказа № ' + failed + ' не завершена. Заказ принят — можно оплатить при получении или позвонить нам: 8 (929) 854-11-44.');
+      }
+    }, 300);
+  } catch(e){}
+})();
+
+// Восстановление сессии — по серверной cookie
+refreshSession();
+// ─── Карусель акций в hero ───
+(function heroPromo(){
+  function start(){
+    var slider = document.getElementById('heroSlider');
+    if (!slider) return;
+    var slides = slider.querySelectorAll('.hslide');
+    var dotsWrap = document.getElementById('heroDots');
+    if (slides.length < 2 || !dotsWrap) return;
+    var i = 0, timer = null;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var dots = [];
+    for (var k = 0; k < slides.length; k++) {
+      var b = document.createElement('button');
+      b.className = 'hslide-dot' + (k === 0 ? ' is-active' : '');
+      b.setAttribute('aria-label', 'Акция ' + (k + 1));
+      (function(idx){ b.addEventListener('click', function(){ go(idx); restart(); }); })(k);
+      dotsWrap.appendChild(b);
+      dots.push(b);
+    }
+    function go(n){
+      slides[i].classList.remove('is-active'); dots[i].classList.remove('is-active');
+      i = (n + slides.length) % slides.length;
+      slides[i].classList.add('is-active'); dots[i].classList.add('is-active');
+    }
+    function next(){ go(i + 1); }
+    function restart(){ if (timer) clearInterval(timer); if (!reduce) timer = setInterval(next, 5000); }
+    slider.addEventListener('mouseenter', function(){ if (timer) clearInterval(timer); });
+    slider.addEventListener('mouseleave', restart);
+    restart();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<!-- Cookie-баннер -->
+<div id="cookieBar" style="display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;max-width:760px;margin:0 auto;background:#161616;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;box-shadow:0 8px 30px rgba(0,0,0,.5);font-family:'Manrope',sans-serif">
+  <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center">
+    <div style="flex:1;min-width:220px;font-size:13px;color:#d8d3ca;line-height:1.6">
+      Мы используем cookie и локальное хранилище для работы корзины и личного кабинета. Продолжая пользоваться сайтом, вы соглашаетесь с
+      <a href="/privacy.html" style="color:#f0b429">политикой конфиденциальности</a>.
+    </div>
+    <button id="cookieOk" style="flex-shrink:0;background:#f0b429;color:#0d0d0d;border:none;border-radius:8px;padding:10px 22px;font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;cursor:pointer">Принять</button>
+  </div>
+</div>
+<script>
+(function cookieBar(){
+  try {
+    if (localStorage.getItem('ss_cookie_ok') === '1') return;
+    var bar = document.getElementById('cookieBar');
+    if (!bar) return;
+    bar.style.display = 'block';
+    document.getElementById('cookieOk').addEventListener('click', function(){
+      try { localStorage.setItem('ss_cookie_ok', '1'); } catch(e){}
+      bar.style.display = 'none';
+    });
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
