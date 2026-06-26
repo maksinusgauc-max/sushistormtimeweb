@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Меню — Суши Шторм</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0d0d0d;--surface:#161616;--card:#1e1e1e;--border:rgba(255,255,255,0.08);
+  --gold:#f0b429;--gold2:#e09820;--red:#d63b2f;--text:#f2ede4;--muted:#8a857e;--subtle:#2a2520;
+}
+body.light{
+  --bg:#f5f0e8;--surface:#fff;--card:#f0ebe0;--border:rgba(0,0,0,0.10);
+  --text:#1a1610;--muted:#7a7060;--subtle:#e8e0d0;
+}
+body.light .k-card-img,body.light .k-ci-img{background:#e8e0d0}
+body.light .k-bub.bot{background:#fff;border:1px solid var(--border)}
+body.light .k-chat-in input,body.light .gate input{background:#f5f0e8;color:var(--text)}
+body.light .k-theme{color:var(--text)}
+.k-theme{background:var(--card);border:1px solid var(--border);color:var(--text);width:44px;height:44px;border-radius:10px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.k-theme:hover{border-color:var(--gold)}
+body{transition:background .3s,color .3s}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:"Manrope",sans-serif;display:flex;flex-direction:column;user-select:none}
+img{display:block;max-width:100%;background:#1a1a1a}
+button{font-family:"Manrope",sans-serif;cursor:pointer;border:none;outline:none}
+
+/* LOGIN GATE */
+.gate{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;padding:24px}
+.gate.hidden{display:none}
+.gate-logo{font-family:"Unbounded",sans-serif;font-size:28px;font-weight:900}
+.gate-logo span{color:var(--gold)}
+.gate-sub{color:var(--muted);font-size:14px;margin-bottom:8px}
+.gate input{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;color:var(--text);font-size:16px;width:280px;text-align:center;outline:none}
+.gate input:focus{border-color:var(--gold)}
+.gate button{background:var(--gold);color:#000;font-weight:700;font-size:15px;padding:16px 40px;border-radius:10px}
+.gate-err{color:var(--red);font-size:13px;height:16px}
+
+/* HEADER */
+.k-head{flex-shrink:0;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.k-logo{font-family:"Unbounded",sans-serif;font-size:18px;font-weight:900}
+.k-logo span{color:var(--gold)}
+.k-head-right{display:flex;gap:12px;align-items:center}
+.k-chat-btn{background:var(--card);border:1px solid var(--border);color:var(--text);font-size:14px;font-weight:600;padding:12px 20px;border-radius:10px;display:flex;align-items:center;gap:8px}
+.k-exit{background:none;border:1px solid var(--border);color:var(--muted);font-size:13px;padding:12px 16px;border-radius:10px}
+
+/* MAIN LAYOUT */
+.k-body{flex:1;display:flex;overflow:hidden}
+.k-cats{flex-shrink:0;width:200px;background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;padding:12px}
+.k-cat{width:100%;text-align:left;padding:14px 16px;border-radius:10px;font-size:15px;font-weight:600;color:var(--muted);background:none;margin-bottom:4px;transition:all .15s}
+.k-cat.active{background:var(--gold);color:#000}
+.k-menu-wrap{flex:1;overflow-y:auto;padding:20px}
+.k-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.k-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s}
+.k-card:active{transform:scale(0.97)}
+.k-card-img{width:100%;height:160px;object-fit:cover}
+.k-card-body{padding:14px;flex:1;display:flex;flex-direction:column}
+.k-card-name{font-weight:700;font-size:15px;margin-bottom:6px;line-height:1.3}
+.k-card-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px;flex:1}
+.k-card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.k-price{font-family:"Unbounded",sans-serif;font-size:18px;font-weight:900;color:var(--gold)}
+.k-add{background:var(--gold);color:#000;font-weight:700;font-size:14px;padding:10px 18px;border-radius:10px}
+.k-add.in{background:var(--subtle);color:var(--gold);display:flex;align-items:center;gap:10px}
+.k-qbtn{width:24px;height:24px;border-radius:6px;background:rgba(240,180,41,.15);color:var(--gold);font-size:16px;display:flex;align-items:center;justify-content:center}
+
+/* CART PANEL */
+.k-cart{flex-shrink:0;width:340px;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column}
+.k-cart-head{padding:18px 20px;border-bottom:1px solid var(--border);font-family:"Unbounded",sans-serif;font-size:16px;font-weight:700}
+.k-cart-items{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.k-cart-empty{color:var(--muted);text-align:center;padding:40px 20px;font-size:14px}
+.k-ci{background:var(--card);border-radius:10px;padding:10px 12px;display:flex;gap:10px;align-items:center}
+.k-ci-img{width:46px;height:46px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.k-ci-info{flex:1;min-width:0}
+.k-ci-name{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.k-ci-price{font-size:13px;color:var(--gold);font-weight:700}
+.k-ci-ctrl{display:flex;align-items:center;gap:6px}
+.k-ci-btn{width:28px;height:28px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:16px;display:flex;align-items:center;justify-content:center}
+.k-ci-q{font-size:14px;font-weight:700;min-width:20px;text-align:center}
+.k-cart-foot{flex-shrink:0;padding:16px 20px;border-top:1px solid var(--border)}
+.k-tot-row{display:flex;justify-content:space-between;font-size:14px;padding:3px 0;color:var(--muted)}
+.k-tot-row.big{font-family:"Unbounded",sans-serif;font-size:18px;font-weight:700;color:var(--gold);padding-top:10px;margin-top:6px;border-top:1px solid var(--border)}
+.k-checkout{width:100%;background:var(--gold);color:#000;font-family:"Unbounded",sans-serif;font-size:14px;font-weight:700;padding:16px;border-radius:12px;margin-top:12px}
+.k-checkout:disabled{opacity:.4}
+
+/* MODAL */
+.k-modal-bg{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:20px}
+.k-modal-bg.open{display:flex}
+.k-modal{background:var(--surface);border-radius:18px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:28px}
+.k-modal h2{font-family:"Unbounded",sans-serif;font-size:18px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+.k-modal h2 button{background:var(--card);color:var(--muted);width:34px;height:34px;border-radius:50%;font-size:16px}
+.k-field{margin-bottom:14px}
+.k-field label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px}
+.k-field input,.k-field select{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;color:var(--text);font-size:15px;outline:none}
+.k-seg{display:flex;gap:8px;margin-bottom:16px}
+.k-seg button{flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:600}
+.k-seg button.active{background:var(--gold);color:#000;border-color:var(--gold)}
+
+/* CHAT */
+.k-chatbox{position:fixed;bottom:0;right:0;z-index:600;width:380px;max-width:100vw;height:520px;max-height:80vh;background:var(--surface);border:1px solid var(--border);border-radius:16px 16px 0 0;display:none;flex-direction:column;box-shadow:0 -8px 40px rgba(0,0,0,.5);margin-right:24px}
+.k-chatbox.open{display:flex}
+.k-chat-h{background:var(--gold);padding:14px 18px;display:flex;align-items:center;gap:12px;border-radius:16px 16px 0 0}
+.k-chat-h .a{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:18px}
+.k-chat-h .t{flex:1;font-weight:700;color:#000;font-size:14px}
+.k-chat-h .t small{display:block;font-weight:500;font-size:11px;color:rgba(0,0,0,.55)}
+.k-chat-h button{background:none;color:rgba(0,0,0,.5);font-size:20px}
+.k-chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.k-bub{max-width:82%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.5}
+.k-bub.bot{background:var(--card);align-self:flex-start;border-radius:4px 14px 14px 14px}
+.k-bub.user{background:var(--gold);color:#000;align-self:flex-end;border-radius:14px 4px 14px 14px;font-weight:500}
+.k-bub.typing{display:flex;gap:5px;padding:14px 16px;width:56px}
+.k-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:kd 1.2s infinite}
+.k-dot:nth-child(2){animation-delay:.2s}.k-dot:nth-child(3){animation-delay:.4s}
+@keyframes kd{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+.k-chat-in{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border)}
+.k-chat-in input{flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;outline:none}
+.k-chat-in button{background:var(--gold);color:#000;width:42px;border-radius:10px;font-size:18px}
+
+.k-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--card);border:1px solid rgba(240,180,41,.35);border-radius:10px;padding:14px 24px;font-size:14px;font-weight:600;z-index:700;transition:transform .3s;pointer-events:none}
+.k-toast.show{transform:translateX(-50%) translateY(0)}
+.k-toast span{color:var(--gold)}
+
+@media(max-width:820px){
+  .k-cats{width:140px}
+  .k-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  /* Корзина превращается в выдвижную панель справа */
+  .k-cart{
+    position:fixed;top:0;right:0;bottom:0;width:360px;max-width:90vw;z-index:300;
+    transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+    box-shadow:-8px 0 32px rgba(0,0,0,.4);
+  }
+  .k-cart.open{transform:translateX(0)}
+  /* Язычок-кнопка */
+  .k-cart-tab{
+    position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:299;
+    background:var(--gold);color:#000;border:none;border-radius:12px 0 0 12px;
+    padding:16px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;
+    box-shadow:-4px 0 16px rgba(0,0,0,.3);font-weight:700;
+  }
+  .k-cart-tab .ico{font-size:22px}
+  .k-cart-tab .lbl{writing-mode:vertical-rl;text-orientation:upright;letter-spacing:2px;font-size:12px;font-weight:900;color:#000;line-height:1}
+  .k-cart-tab .cnt{background:#000;color:var(--gold);font-size:12px;font-weight:900;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+  /* Затемнение фона при открытой корзине */
+  .k-cart-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:298;opacity:0;pointer-events:none;transition:opacity .3s}
+  .k-cart-backdrop.open{opacity:1;pointer-events:auto}
+  /* Кнопка закрытия внутри корзины */
+  .k-cart-close{display:flex !important}
+}
+/* На десктопе язычок и кнопка закрытия скрыты */
+.k-cart-tab{display:none}
+.k-cart-backdrop{display:none}
+.k-cart-close{display:none;background:var(--card);border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;align-items:center;justify-content:center}
+@media(max-width:820px){.k-cart-tab{display:flex}.k-cart-backdrop{display:block}}
+/* Кнопка очистки корзины */
+.k-clear-btn{width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:12px;padding:10px;border-radius:8px;cursor:pointer;margin-top:8px;transition:all .2s}
+.k-clear-btn:hover{border-color:var(--red);color:var(--red)}
+.k-selffill{display:flex;align-items:center;gap:10px;padding:12px 0;cursor:pointer;font-size:14px;color:var(--text);user-select:none}
+.k-selffill input{width:20px;height:20px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
+.k-cart-head{display:flex;align-items:center;justify-content:space-between}
+/* Приборы */
+.k-cutlery{display:flex;gap:8px;flex-wrap:wrap}
+.k-cut-btn{width:46px;height:46px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:16px;font-weight:700;cursor:pointer;transition:all .15s}
+.k-cut-btn.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.k-cut-input{width:60px;height:46px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:16px;font-weight:700;text-align:center;outline:none}
+.k-cut-input.active{border-color:var(--gold);color:var(--gold)}
+.k-cut-input:focus{border-color:var(--gold)}
+.k-check{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text);cursor:pointer}
+.k-check input{width:18px;height:18px;accent-color:var(--gold);cursor:pointer}
+
+/* Блок кнопок для персонала — скрыт от гостей, открывается долгим нажатием на логотип */
+.k-staff{display:none;gap:12px;align-items:center}
+.k-staff.show{display:flex}
+.k-logo{cursor:pointer}
+/* Оформление: кнопка "заполнить самостоятельно" и список подтверждения */
+.k-fill-btn{width:100%;background:transparent;border:1px solid var(--gold);color:var(--gold);font-weight:700;font-size:14px;padding:14px;border-radius:12px;margin-top:10px;cursor:pointer}
+.k-confirm-list{max-height:42vh;overflow-y:auto;margin-bottom:14px}
+.k-confirm-row{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:9px 0;border-bottom:1px solid var(--border)}
+
+/* ── Портретный планшет-киоск (≈610×840): 2 крупные колонки, компактная шапка ── */
+.k-hide-narrow{display:inline}
+@media(max-width:680px){
+  /* Шапка: всё в один ряд, текст-подписи прячем, кнопки делаем иконками */
+  .k-hide-narrow{display:none}
+  .k-head{padding:12px 14px}
+  .k-logo{font-size:15px}
+  .k-head-right{gap:7px}
+  .k-theme{width:42px;height:42px;font-size:17px}
+  .k-chat-btn{padding:13px 18px;width:auto;height:auto;justify-content:center;gap:8px;font-size:16px;font-weight:700}
+  .k-exit{padding:10px 12px;font-size:12px}
+
+  /* Левый список категорий — уже, но читаемо, с переносом длинных названий */
+  .k-cats{width:122px;padding:10px 8px}
+  .k-cat{font-size:15px;font-weight:800;padding:13px 10px;line-height:1.2;margin-bottom:3px}
+
+  /* Сетка: ровно 2 колонки, крупные фото */
+  .k-menu-wrap{padding:14px}
+  .k-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .k-card-img{height:185px}
+  .k-card-body{padding:12px}
+  .k-card-name{font-size:14px;margin-bottom:5px}
+  .k-card-desc{font-size:11.5px;line-height:1.45;margin-bottom:9px}
+  .k-price{font-size:17px}
+  .k-add{padding:9px 12px;font-size:13px}
+  .k-qbtn{width:22px;height:22px}
+
+  /* Корзина — выезжающая панель сбоку */
+  .k-cart{width:360px;max-width:90vw}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN GATE -->
+<div class="gate" id="gate">
+  <div class="gate-logo">СУШИ <span>ШТОРМ</span></div>
+  <div class="gate-sub">Режим электронного меню</div>
+  <input id="gate-login" value="admin" placeholder="Логин" autocomplete="off">
+  <input id="gate-pass" type="password" placeholder="Пароль" onkeydown="if(event.key==='Enter')kioskLogin()">
+  <div class="gate-err" id="gate-err"></div>
+  <button onclick="kioskLogin()">Войти</button>
+</div>
+
+<!-- HEADER -->
+<div class="k-head">
+  <div class="k-logo">СУШИ <span>ШТОРМ</span><span class="k-hide-narrow"> · Меню</span></div>
+  <div class="k-head-right">
+    <button class="k-theme" id="kThemeBtn" onclick="kToggleTheme()" title="Сменить тему">🌙</button>
+    <button class="k-chat-btn" onclick="toggleChat()">💬<span> Помощник по меню</span></button>
+    <span class="k-staff" id="kStaff">
+      <button class="k-theme" onclick="kHardRefresh()" title="Обновить страницу">🔄</button>
+      <button class="k-theme" onclick="location.href='/admin.html'" title="Админ-панель">⚙️</button>
+      <button class="k-exit" onclick="kioskLogout()">Выход</button>
+    </span>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="k-body">
+  <div class="k-cats" id="kCats"></div>
+  <div class="k-menu-wrap"><div class="k-grid" id="kGrid"></div></div>
+  <div class="k-cart-backdrop" id="kCartBackdrop" onclick="toggleCart()"></div>
+  <button class="k-cart-tab" id="kCartTab" onclick="toggleCart()">
+    <span class="ico">🛒</span>
+    <span class="lbl">КОРЗИНА</span>
+    <span class="cnt" id="kCartTabCount">0</span>
+  </button>
+  <div class="k-cart" id="kCart">
+    <div class="k-cart-head">Корзина <button class="k-cart-close" onclick="toggleCart()">✕</button></div>
+    <div class="k-cart-items" id="kCartItems"></div>
+    <div class="k-cart-foot" id="kCartFoot"></div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="k-modal-bg" id="kModal">
+  <div class="k-modal" id="kModalContent"></div>
+</div>
+
+<!-- CHAT -->
+<div class="k-chatbox" id="kChat">
+  <div class="k-chat-h">
+    <div class="a">🍣</div>
+    <div class="t">Помощник по меню<small>Спросите что посоветовать</small></div>
+    <button onclick="toggleChat()">✕</button>
+  </div>
+  <div class="k-chat-msgs" id="kChatMsgs"></div>
+  <div class="k-chat-in">
+    <input id="kChatInput" placeholder="Что острое? Что посоветуете?" onkeydown="if(event.key==='Enter')kSendChat()">
+    <button onclick="kSendChat()">➤</button>
+  </div>
+</div>
+
+<div class="k-toast" id="kToast">Добавлено: <span id="kToastName"></span></div>
+
+<script src="menu.js"></script>
+<script>
+function getDishes(){
+  var base = (window.MENU && window.MENU.length) ? window.MENU : [];
+  if(!base.length) return base;
+  try {
+    var ovr = JSON.parse(localStorage.getItem('ss_admin_overrides') || '{}');
+    var order = JSON.parse(localStorage.getItem('ss_admin_order') || 'null');
+
+    // применяем переопределения цены/бейджа/состава и фильтруем скрытые
+    var applied = [];
+    base.forEach(function(d){
+      var o = ovr[d.id];
+      if(o && o.off) return; // скрыто — не показываем гостю
+      if(o){
+        applied.push(Object.assign({}, d, {
+          price: (o.price != null ? o.price : d.price),
+          badge: (o.badge !== undefined ? o.badge : d.badge),
+          desc:  (o.desc !== undefined ? o.desc : d.desc)
+        }));
+      } else {
+        applied.push(d);
+      }
+    });
+
+    // применяем порядок
+    if(order && order.length){
+      var byId = {};
+      applied.forEach(function(d){ byId[d.id] = d; });
+      var sorted = [];
+      order.forEach(function(id){ if(byId[id]){ sorted.push(byId[id]); delete byId[id]; } });
+      applied.forEach(function(d){ if(byId[d.id]) sorted.push(d); });
+      return sorted;
+    }
+    return applied;
+  } catch(e){ return base; }
+}
+
+const CATS = [
+  ['all','🍽 Всё'],['sets','🎁 Сеты'],['rolls','🌀 Холодные роллы'],['baked','🔥 Запечённые'],
+  ['tempura','🍤 Жареные'],['mini','🥢 Мини роллы'],['sushi','🍣 Суши'],['pizza','🍕 Пицца'],
+  ['salads','🥗 Салаты'],['hot','🍟 Горячее'],['soupmussels','🦪 Супы и мидии'],
+  ['desserts','🍰 Десерты'],['drinks','🥤 Напитки'],['sauces','🧂 Соусы']
+];
+
+let cart = [];
+let curCat = 'all';
+let chatHistory = [];
+
+function esc(s){return String(s==null?'':s).split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;');}
+
+// ─── LOGIN киоска: проверка на сервере (общий пароль ADMIN_PASS, как на сайте) ───
+async function kioskLogin(){
+  const l = document.getElementById('gate-login').value.trim();
+  const p = document.getElementById('gate-pass').value;
+  const err = document.getElementById('gate-err');
+  err.textContent = '';
+  if(!l || !p){ err.textContent='Введите логин и пароль'; return; }
+  try {
+    const r = await fetch('/api/admin-login', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ login:l, pass:p })
+    });
+    const d = await r.json().catch(function(){ return {}; });
+    if(d && d.ok){
+      sessionStorage.setItem('kiosk_ok','1');
+      document.getElementById('gate').classList.add('hidden');
+      return;
+    }
+    if(d && d.error==='not_configured'){ err.textContent='Вход не настроен: задайте ADMIN_PASS в Vercel'; return; }
+    if(d && d.error==='too_many'){ err.textContent='Слишком много попыток, подождите минуту'; return; }
+    err.textContent = 'Неверный логин или пароль';
+  } catch(e){ err.textContent='Нет связи с сервером'; }
+}
+function kioskLogout(){ sessionStorage.removeItem('kiosk_ok'); location.reload(); }
+
+// ─── ТЕМА ───
+function kToggleTheme(){
+  var isLight = document.body.classList.toggle('light');
+  var btn = document.getElementById('kThemeBtn');
+  if (btn) btn.textContent = isLight ? '☀️' : '🌙';
+  try { localStorage.setItem('ss_theme', isLight ? 'light' : 'dark'); } catch(e){}
+}
+(function(){
+  try {
+    if (localStorage.getItem('ss_theme') === 'light') {
+      document.body.classList.add('light');
+      var b = document.getElementById('kThemeBtn');
+      if (b) b.textContent = '☀️';
+    }
+  } catch(e){}
+})();
+if(sessionStorage.getItem('kiosk_ok')==='1') document.getElementById('gate').classList.add('hidden');
+
+// ─── MENU ───
+function renderCats(){
+  document.getElementById('kCats').innerHTML = CATS.map(([id,label])=>
+    `<button class="k-cat ${id===curCat?'active':''}" onclick="setCat('${id}')">${label}</button>`
+  ).join('');
+}
+function setCat(id){ curCat=id; renderCats(); renderGrid(); document.querySelector('.k-menu-wrap').scrollTop=0; }
+function renderGrid(){
+  const list = curCat==='all'?getDishes():getDishes().filter(d=>d.cat===curCat);
+  document.getElementById('kGrid').innerHTML = list.map(d=>{
+    const inCart = cart.find(c=>c.id===d.id);
+    return `<div class="k-card">
+      <img class="k-card-img" src="${d.img}" alt="${esc(d.name)}" loading="lazy" data-real="${d.img}" data-ph="${d.ph||''}" onerror="imgError(this)">
+      <div class="k-card-body">
+        <div class="k-card-name">${esc(d.name)}</div>
+        <div class="k-card-desc">${esc(d.desc||'')}</div>
+        <div class="k-card-foot">
+          <span class="k-price">${d.price} ₽</span>
+          ${inCart
+            ? `<div class="k-add in"><button class="k-qbtn" onclick="chQ(${d.id},-1)">−</button>${inCart.qty}<button class="k-qbtn" onclick="chQ(${d.id},1)">+</button></div>`
+            : `<button class="k-add" onclick="addCart(${d.id})">+ В корзину</button>`}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── CART ───
+function addCart(id){
+  const d=getDishes().find(x=>x.id===id);
+  const ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++; else cart.push({...d,qty:1});
+  renderGrid(); renderCart(); toast(d.name);
+}
+function chQ(id,delta){
+  const it=cart.find(x=>x.id===id);
+  if(!it)return; it.qty+=delta;
+  if(it.qty<=0)cart=cart.filter(x=>x.id!==id);
+  renderGrid(); renderCart();
+}
+function renderCart(){
+  const items=document.getElementById('kCartItems');
+  const foot=document.getElementById('kCartFoot');
+  updateCartTab();
+  if(!cart.length){
+    items.innerHTML='<div class="k-cart-empty">Корзина пуста.<br>Нажмите «+ В корзину» у блюда</div>';
+    foot.innerHTML='<button class="k-checkout" disabled>Оформить</button>';
+    return;
+  }
+  items.innerHTML=cart.map(c=>`
+    <div class="k-ci">
+      <img class="k-ci-img" src="${c.img}" onerror="this.onerror=null;this.src=this.dataset.ph" data-ph="${c.ph||''}">
+      <div class="k-ci-info"><div class="k-ci-name">${esc(c.name)}</div><div class="k-ci-price">${c.price*c.qty} ₽</div></div>
+      <div class="k-ci-ctrl"><button class="k-ci-btn" onclick="chQ(${c.id},-1)">−</button><span class="k-ci-q">${c.qty}</span><button class="k-ci-btn" onclick="chQ(${c.id},1)">+</button></div>
+    </div>`).join('');
+  const sub=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  foot.innerHTML=`
+    <div class="k-tot-row"><span>Позиций</span><span>${cart.reduce((s,x)=>s+x.qty,0)}</span></div>
+    <div class="k-tot-row big"><span>Итого</span><span>${sub} ₽</span></div>
+    <button class="k-checkout" onclick="openCheckout()">Оформить заказ</button>
+    <button class="k-clear-btn" onclick="clearCart()">🗑 Очистить корзину</button>`;
+}
+
+function updateCartTab(){
+  const n = cart.reduce((s,x)=>s+x.qty,0);
+  const c = document.getElementById('kCartTabCount');
+  if(c) c.textContent = n;
+}
+
+function toggleCart(){
+  const cart_el = document.getElementById('kCart');
+  const bd = document.getElementById('kCartBackdrop');
+  const open = cart_el.classList.toggle('open');
+  if(bd) bd.classList.toggle('open', open);
+}
+
+function clearCart(){
+  if(!cart.length) return;
+  if(confirm('Очистить всю корзину?')){
+    cart=[];
+    renderCart(); renderGrid();
+  }
+}
+
+// ─── CHECKOUT ───
+let _mode='delivery', _cutlery=1, _noCutlery=false, _detailed=false, _submitting=false, _cutleryChosen=false;
+let _fPhone='+7 ', _fName='', _fAddr='', _fComment='', _fPreorder='';
+function openCheckout(){
+  _mode='delivery'; _cutlery=1; _noCutlery=false; _detailed=false; _submitting=false; _cutleryChosen=false;
+  _fPhone='+7 '; _fName=''; _fAddr=''; _fComment=''; _fPreorder='';
+  document.getElementById('kModal').classList.add('open');
+  renderCheckout();
+}
+function showCheckoutForm(){ _detailed=true; renderCheckout(); }
+// Запоминаем введённое перед перерисовкой формы, чтобы данные не слетали
+function snapshotForm(){
+  var p=document.getElementById('ko-phone'); if(p)_fPhone=p.value;
+  var n=document.getElementById('ko-name'); if(n)_fName=n.value;
+  var a=document.getElementById('ko-addr'); if(a)_fAddr=a.value;
+  var c=document.getElementById('ko-comment'); if(c)_fComment=c.value;
+  var pr=document.getElementById('ko-preorder'); if(pr)_fPreorder=pr.value;
+}
+function renderCheckout(){
+  snapshotForm();
+  const sub=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const cnt=cart.reduce((s,x)=>s+x.qty,0);
+
+  // ── Шаг 1: простое подтверждение (голый заказ, без данных) ──
+  if(!_detailed){
+    document.getElementById('kModalContent').innerHTML=`
+      <h2>Оформление заказа <button onclick="closeCheckout()">✕</button></h2>
+      <div class="k-confirm-list">
+        ${cart.map(c=>`<div class="k-confirm-row"><span>${esc(c.name)} <span style="color:var(--muted)">× ${c.qty}</span></span><span style="white-space:nowrap">${c.price*c.qty} ₽</span></div>`).join('')}
+      </div>
+      <div class="k-tot-row"><span>Позиций</span><span>${cnt}</span></div>
+      <div class="k-tot-row big" style="margin-bottom:16px"><span>Итого</span><span>${sub} ₽</span></div>
+
+      <div class="k-field">
+        <label>Количество приборов <span style="color:var(--muted)">(необязательно)</span></label>
+        <div class="k-cutlery" style="${_noCutlery?'opacity:.4;pointer-events:none':''}">
+          ${[1,2,3,4,5,6].map(n=>`<button class="k-cut-btn ${_cutleryChosen&&!_noCutlery&&_cutlery===n?'active':''}" onclick="setCutlery(${n})">${n}</button>`).join('')}
+          <input class="k-cut-input ${_cutleryChosen&&!_noCutlery&&![1,2,3,4,5,6].includes(_cutlery)?'active':''}" id="ko-cutlery-custom" type="number" min="1" max="50" inputmode="numeric" placeholder="…" value="${![1,2,3,4,5,6].includes(_cutlery)?_cutlery:''}" oninput="setCutleryCustom(this.value)">
+        </div>
+        <label class="k-check" style="margin-top:10px">
+          <input type="checkbox" id="ko-nocutlery" ${_noCutlery?'checked':''} onchange="toggleNoCutlery()">
+          <span>Без приборов</span>
+        </label>
+      </div>
+
+      <button class="k-checkout" onclick="submitKiosk()">Подтвердить заказ</button>
+      <button class="k-fill-btn" onclick="showCheckoutForm()">✏️ Заполнить данные самостоятельно</button>
+      <div style="color:var(--muted);font-size:12px;text-align:center;margin-top:12px;line-height:1.5">Можно подтвердить без данных — сотрудник уточнит детали лично.</div>
+    `;
+    return;
+  }
+
+  // ── Шаг 2: полная форма (телефон, имя, адрес и т.д.) ──
+  document.getElementById('kModalContent').innerHTML=`
+    <h2>Оформление заказа <button onclick="closeCheckout()">✕</button></h2>
+
+    <div class="k-seg">
+      <button class="${_mode==='delivery'?'active':''}" onclick="setMode('delivery')">🚴 Доставка</button>
+      <button class="${_mode==='pickup'?'active':''}" onclick="setMode('pickup')">🥡 Самовывоз</button>
+    </div>
+
+    <div class="k-field"><label>Телефон <span style="color:var(--red)">*</span></label><input id="ko-phone" type="tel" inputmode="tel" value="${esc(_fPhone)}" placeholder="+7 ___ ___-__-__"></div>
+
+    <div class="k-field"><label>Имя <span style="color:var(--muted)">(необязательно)</span></label><input id="ko-name" value="${esc(_fName)}" placeholder="Иван"></div>
+
+    ${_mode==='delivery'?`
+      <div class="k-field"><label>Адрес доставки <span style="color:var(--red)">*</span></label><input id="ko-addr" value="${esc(_fAddr)}" placeholder="ул. Садовая, д. 12, кв. 5"></div>
+    `:''}
+
+    <div class="k-field">
+      <label>Количество приборов <span style="color:var(--red)">*</span></label>
+      <div class="k-cutlery" style="${_noCutlery?'opacity:.4;pointer-events:none':''}">
+        ${[1,2,3,4,5,6].map(n=>`<button class="k-cut-btn ${_cutleryChosen&&!_noCutlery&&_cutlery===n?'active':''}" onclick="setCutlery(${n})">${n}</button>`).join('')}
+        <input class="k-cut-input ${_cutleryChosen&&!_noCutlery&&![1,2,3,4,5,6].includes(_cutlery)?'active':''}" id="ko-cutlery-custom" type="number" min="1" max="50" inputmode="numeric" placeholder="…" value="${![1,2,3,4,5,6].includes(_cutlery)?_cutlery:''}" oninput="setCutleryCustom(this.value)">
+      </div>
+      <label class="k-check" style="margin-top:10px">
+        <input type="checkbox" id="ko-nocutlery" ${_noCutlery?'checked':''} onchange="toggleNoCutlery()">
+        <span>Без приборов</span>
+      </label>
+    </div>
+
+    <div class="k-field"><label>Предзаказ ко времени <span style="color:var(--muted)">(необязательно)</span></label><input id="ko-preorder" type="time" value="${esc(_fPreorder)}" placeholder="--:--"></div>
+
+    <div class="k-field"><label>Комментарий <span style="color:var(--muted)">(необязательно)</span></label><input id="ko-comment" value="${esc(_fComment)}" placeholder="Без острого, домофон не работает..."></div>
+
+    <div class="k-tot-row big" style="margin-bottom:12px"><span>Итого</span><span>${sub} ₽</span></div>
+    <button class="k-checkout" onclick="submitKiosk()">Подтвердить заказ 🎉</button>
+  `;
+}
+function setMode(m){ _mode=m; renderCheckout(); }
+function setCutlery(n){ _cutlery=n; _noCutlery=false; _cutleryChosen=true; renderCheckout(); }
+function setCutleryCustom(v){
+  var n=parseInt(v,10);
+  if(n>0){ _cutlery=n; _noCutlery=false; _cutleryChosen=true; }
+  // не перерисовываем целиком, чтобы не сбить фокус с поля
+  document.querySelectorAll('.k-cut-btn').forEach(function(b){ b.classList.remove('active'); });
+}
+function toggleNoCutlery(){ _noCutlery=document.getElementById('ko-nocutlery').checked; _cutleryChosen=true; renderCheckout(); }
+// Текст про приборы для примечания: учитываем, выбрал ли гость вообще
+function cutleryNote(){
+  if(_noCutlery) return 'без приборов';
+  if(_cutleryChosen) return _cutlery+' '+persons(_cutlery);
+  return 'клиент не выбрал количество приборов';
+}
+function closeCheckout(){ document.getElementById('kModal').classList.remove('open'); }
+
+function validKioskPhone(p){
+  var digits=(p||'').replace(/\D/g,'');
+  return digits.length>=10;
+}
+
+async function submitKiosk(){
+  if(_submitting) return; // блок повторных нажатий, пока заказ не оформлен
+  var phone='', name='', comment='', preorder='', addr='';
+  if(_detailed){
+    phone=(document.getElementById('ko-phone')?.value||'').trim();
+    name=(document.getElementById('ko-name')?.value||'').trim();
+    comment=(document.getElementById('ko-comment')?.value||'').trim();
+    preorder=(document.getElementById('ko-preorder')?.value||'').trim();
+    if(_mode==='delivery') addr=(document.getElementById('ko-addr')?.value||'').trim();
+    // Валидация — только когда гость сам заполняет данные
+    if(!validKioskPhone(phone)){ alert('Укажите корректный телефон'); return; }
+    if(_mode==='delivery' && !addr){ alert('Укажите адрес доставки'); return; }
+  }
+
+  // Блокируем кнопку, чтобы повторные тычки не создавали новых заказов
+  _submitting=true;
+  document.querySelectorAll('#kModalContent .k-checkout').forEach(function(b){ b.disabled=true; b.style.opacity='.6'; b.textContent='Отправляем…'; });
+
+  // Примечание для ФронтПада
+  var d=[];
+  if(_detailed){
+    d.push(_mode==='pickup'?'🥡 САМОВЫВОЗ':'🚴 ДОСТАВКА');
+    d.push('Приборы: '+cutleryNote());
+    if(preorder) d.push('⏰ Предзаказ к '+preorder);
+    if(comment) d.push('Коммент: '+comment);
+  } else {
+    d.push('Приборы: '+cutleryNote());
+  }
+  d.push('— планшет в зале');
+
+  var ordNum=null, errMsg='';
+  try{
+    var r=await fetch('/api/order',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        source: 'kiosk',
+        bare: !_detailed,
+        name: name,
+        phone: phone,
+        street: addr,
+        descr: d.join('. '),
+        items: cart.map(function(c){ return {article:c.article,qty:c.qty}; })
+      })});
+    var j=await r.json();
+    if(j && j.ok && j.order_number){ ordNum=j.order_number; }
+    else { errMsg=(j && j.error) ? j.error : 'Заказ не принят кассой'; }
+  }catch(e){ errMsg='Нет связи с сервером'; }
+
+  // ── Не удалось отправить: НЕ чистим корзину, НЕ показываем фейковый номер ──
+  if(!ordNum){
+    _submitting=false;
+    document.getElementById('kModalContent').innerHTML=`
+      <div style="text-align:center;padding:20px 0">
+        <div style="font-size:56px">⚠️</div>
+        <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;margin:12px 0 10px">Не удалось отправить заказ</div>
+        <div style="color:var(--muted);font-size:15px;line-height:1.6">${esc(errMsg)}.<br>Проверьте интернет и попробуйте ещё раз.<br>Корзина сохранена.</div>
+        <button class="k-checkout" style="margin-top:22px" onclick="renderCheckout()">Попробовать снова</button>
+        <button class="k-fill-btn" onclick="closeCheckout()">Закрыть</button>
+      </div>`;
+    return;
+  }
+
+  document.getElementById('kModalContent').innerHTML=`
+    <div style="text-align:center;padding:20px 0">
+      <div style="font-size:60px">🎉</div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:22px;font-weight:700;margin:12px 0 18px">Ваш заказ принят!</div>
+      <div style="color:var(--muted);font-size:14px;margin-bottom:4px">Ваш номер заказа</div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:44px;font-weight:900;color:var(--gold);line-height:1.1">№ ${esc(String(ordNum))}</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-top:22px;color:var(--text);font-size:16px;line-height:1.6">📸 Сфотографируйте номер заказа<br>и передайте его администратору</div>
+      <button class="k-checkout" style="margin-top:24px" onclick="kioskReset()">ОК</button>
+    </div>`;
+  cart=[];renderCart();renderGrid();
+  var co=document.getElementById('kCart'); if(co)co.classList.remove('open');
+  var bd=document.getElementById('kCartBackdrop'); if(bd)bd.classList.remove('open');
+}
+function persons(n){
+  n=Math.abs(n)%100; var n1=n%10;
+  if(n>10&&n<20) return 'персон';
+  if(n1>1&&n1<5) return 'персоны';
+  if(n1===1) return 'персона';
+  return 'персон';
+}
+function kioskReset(){
+  _submitting=false;
+  closeCheckout();
+  var co=document.getElementById('kCart'); if(co)co.classList.remove('open');
+  var bd=document.getElementById('kCartBackdrop'); if(bd)bd.classList.remove('open');
+  if(typeof renderGrid==='function')renderGrid();
+}
+
+// ─── Мягкий сброс по простою ───
+// Если киоском не пользуются заданное время — чистим корзину, закрываем
+// окна/чат и возвращаемся к меню, чтобы следующий гость начал заново.
+var _idleTimer=null;
+var KIOSK_IDLE_MS=150000; // 2.5 минуты
+function kioskSoftReset(){
+  if(_submitting) return; // идёт отправка — не трогаем
+  cart=[]; _detailed=false; _cutleryChosen=false;
+  _fPhone='+7 '; _fName=''; _fAddr=''; _fComment=''; _fPreorder='';
+  if(typeof renderCart==='function')renderCart();
+  closeCheckout();
+  var co=document.getElementById('kCart'); if(co)co.classList.remove('open');
+  var bd=document.getElementById('kCartBackdrop'); if(bd)bd.classList.remove('open');
+  var ch=document.getElementById('kChat'); if(ch)ch.classList.remove('open');
+  var st=document.getElementById('kStaff'); if(st)st.classList.remove('show');
+  if(typeof renderGrid==='function')renderGrid();
+}
+function kioskIdleTick(){
+  if(_idleTimer)clearTimeout(_idleTimer);
+  _idleTimer=setTimeout(kioskSoftReset, KIOSK_IDLE_MS);
+}
+['touchstart','mousedown','keydown','wheel','input'].forEach(function(ev){
+  document.addEventListener(ev, kioskIdleTick, true);
+});
+kioskIdleTick();
+
+// ─── AI CHAT (Claude API через /api/chat) ───
+function toggleChat(){
+  const c=document.getElementById('kChat');
+  const open=c.classList.toggle('open');
+  if(open){
+    if(!chatHistory.length){
+      kBub('Привет! 👋 Я помогу выбрать блюда. Спросите, что острое, что посоветую, или из чего состоит ролл 🍣','bot');
+    }
+    setTimeout(()=>document.getElementById('kChatInput').focus(),200);
+  }
+}
+function kBub(text,role){
+  const box=document.getElementById('kChatMsgs');
+  const b=document.createElement('div');
+  b.className='k-bub '+role;
+  b.innerHTML=esc(text).replace(/\n/g,'<br>');
+  box.appendChild(b);box.scrollTop=box.scrollHeight;
+  return b;
+}
+async function kSendChat(){
+  const inp=document.getElementById('kChatInput');
+  const text=inp.value.trim();
+  if(!text)return;
+  inp.value='';
+  kBub(text,'user');
+  chatHistory.push({role:'user',content:text});
+  const box=document.getElementById('kChatMsgs');
+  const typing=document.createElement('div');
+  typing.className='k-bub bot typing';
+  typing.innerHTML='<span class="k-dot"></span><span class="k-dot"></span><span class="k-dot"></span>';
+  box.appendChild(typing);box.scrollTop=box.scrollHeight;
+  try{
+    const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:chatHistory,menu:getDishes().map(d=>({name:d.name,cat:d.cat,price:d.price}))})});
+    const d=await r.json();
+    typing.remove();
+    if(d.reply){kBub(d.reply,'bot');chatHistory.push({role:'assistant',content:d.reply});}
+    else{kBub('Извините, не смог ответить. Спросите официанта 🙏','bot');}
+  }catch(e){
+    typing.remove();
+    kBub('Связь прервалась. Попробуйте ещё раз или спросите официанта 🙏','bot');
+  }
+}
+
+// ─── TOAST ───
+function toast(name){
+  const t=document.getElementById('kToast');
+  document.getElementById('kToastName').textContent=name;
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+// INIT
+function kInit(){
+  renderCats();renderCart();
+  if(getDishes().length){ renderGrid(); preloadImages(); }
+  else {
+    var tries=0;
+    var t=setInterval(function(){
+      tries++;
+      if(getDishes().length){ clearInterval(t); renderGrid(); preloadImages(); }
+      else if(tries>40){ clearInterval(t); document.getElementById('kGrid').innerHTML='<p style="color:var(--muted);padding:30px;text-align:center;grid-column:1/-1">Меню не загрузилось. Обновите страницу.</p>'; }
+    },100);
+  }
+}
+
+// Предзагрузка всех картинок в кэш — чтобы при прокрутке они уже были готовы
+// и не пропадали со временем на слабом планшете
+function preloadImages(){
+  var list = getDishes();
+  var i = 0;
+  function next(){
+    if(i >= list.length) return;
+    var d = list[i++];
+    if(d.img && d.img.indexOf('data:') !== 0){
+      var img = new Image();
+      img.onload = img.onerror = next;
+      img.src = d.img;
+    } else {
+      next();
+    }
+  }
+  // грузим по очереди, не все сразу — чтобы не перегрузить слабый планшет
+  next();
+}
+
+// Принудительное обновление — чистит кэш и грузит свежую версию
+function kHardRefresh(){
+  if('serviceWorker' in navigator && navigator.serviceWorker.controller){
+    navigator.serviceWorker.controller.postMessage('clearCache');
+  }
+  // чистим все кэши на всякий случай
+  if(window.caches && caches.keys){
+    caches.keys().then(function(keys){
+      return Promise.all(keys.map(function(k){ return caches.delete(k); }));
+    }).then(function(){
+      location.reload(true);
+    });
+  } else {
+    location.reload(true);
+  }
+}
+
+// Обработка ошибки картинки: показываем заглушку, но запоминаем настоящий src,
+// чтобы перезагрузить когда интернет вернётся
+function imgError(img){
+  img.onerror = null;
+  if(img.dataset.ph) img.src = img.dataset.ph;
+  img.dataset.failed = '1';
+}
+
+// Когда интернет вернулся — пробуем перезагрузить все картинки, что не догрузились
+window.addEventListener('online', retryFailedImages);
+function retryFailedImages(){
+  var imgs = document.querySelectorAll('img[data-failed="1"]');
+  imgs.forEach(function(img){
+    var real = img.dataset.real;
+    if(real){
+      img.dataset.failed = '';
+      img.onerror = function(){ imgError(img); };
+      img.src = real + '?r=' + Date.now(); // обход кэша
+    }
+  });
+}
+
+// Service Worker УБРАН. На старом движке планшета SW заклинивал перезагрузку
+// и капризничал с кэшем картинок. Картинки теперь лёгкие JPEG — браузер
+// кэширует их сам. При загрузке активно сносим любой ранее установленный SW
+// и его кэш, чтобы зависания больше не повторялись ни на одном устройстве.
+if('serviceWorker' in navigator && navigator.serviceWorker.getRegistrations){
+  navigator.serviceWorker.getRegistrations().then(function(regs){
+    for(var i=0;i<regs.length;i++){ regs[i].unregister(); }
+  }).catch(function(){});
+}
+if(window.caches && caches.keys){
+  caches.keys().then(function(keys){
+    for(var i=0;i<keys.length;i++){ caches.delete(keys[i]); }
+  }).catch(function(){});
+}
+
+// ─── Доступ для персонала: долгое нажатие (~1.8 c) на логотип открывает 🔄/⚙️/Выход на 30 сек ───
+(function(){
+  var logo = document.querySelector('.k-logo');
+  if(!logo) return;
+  var pressTimer = null, hideTimer = null;
+  function reveal(){
+    var s = document.getElementById('kStaff');
+    if(!s) return;
+    s.classList.add('show');
+    if(hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function(){ s.classList.remove('show'); }, 30000);
+  }
+  function start(){ cancel(); pressTimer = setTimeout(reveal, 1800); }
+  function cancel(){ if(pressTimer){ clearTimeout(pressTimer); pressTimer = null; } }
+  logo.addEventListener('touchstart', start);
+  logo.addEventListener('touchend', cancel);
+  logo.addEventListener('touchmove', cancel);
+  logo.addEventListener('mousedown', start);
+  logo.addEventListener('mouseup', cancel);
+  logo.addEventListener('mouseleave', cancel);
+})();
+
+if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',kInit); } else { kInit(); }
+</script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Админ-панель — Суши Шторм</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0d0d0d;--surface:#161616;--card:#1e1e1e;--border:rgba(255,255,255,0.08);
+  --gold:#f0b429;--red:#d63b2f;--green:#4caf50;--text:#f2ede4;--muted:#8a857e;--subtle:#2a2520;
+}
+body{background:var(--bg);color:var(--text);font-family:"Manrope",sans-serif;min-height:100vh}
+button{font-family:inherit;cursor:pointer;border:none;outline:none}
+input,select{font-family:inherit}
+
+/* GATE */
+.gate{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;padding:24px}
+.gate.hidden{display:none}
+.gate-logo{font-family:"Unbounded",sans-serif;font-size:24px;font-weight:900}
+.gate-logo span{color:var(--gold)}
+.gate-sub{color:var(--muted);font-size:13px;margin-bottom:8px}
+.pin-display{display:flex;gap:10px;margin-bottom:6px}
+.pin-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);transition:all .15s}
+.pin-dot.filled{background:var(--gold);border-color:var(--gold)}
+.pin-pad{display:grid;grid-template-columns:repeat(3,72px);gap:12px}
+.pin-key{height:72px;border-radius:14px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:26px;font-weight:600;transition:all .1s}
+.pin-key:active{background:var(--gold);color:#000}
+.pin-key.wide{font-size:18px}
+.gate-err{color:var(--red);font-size:13px;height:16px}
+
+/* HEADER */
+.a-head{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.a-logo{font-family:"Unbounded",sans-serif;font-size:16px;font-weight:900}
+.a-logo span{color:var(--gold)}
+.a-head-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.a-search{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-size:14px;width:220px;outline:none}
+.a-search:focus{border-color:var(--gold)}
+.a-btn{background:var(--card);border:1px solid var(--border);color:var(--text);font-size:13px;font-weight:600;padding:10px 16px;border-radius:10px}
+.a-btn.gold{background:var(--gold);color:#000;border-color:var(--gold)}
+.a-btn.danger{color:var(--red);border-color:rgba(214,59,47,.3)}
+
+/* SAVE BAR */
+.save-bar{position:fixed;bottom:0;left:0;right:0;z-index:60;background:var(--surface);border-top:1px solid var(--border);padding:14px 20px;display:none;align-items:center;justify-content:space-between;gap:12px}
+.save-bar.show{display:flex}
+.save-bar span{font-size:14px;color:var(--gold)}
+
+/* TABS */
+.a-cats{display:flex;gap:8px;padding:14px 20px;overflow-x:auto;border-bottom:1px solid var(--border);position:sticky;top:57px;background:var(--bg);z-index:40}
+.a-cat{padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--muted);background:var(--card);border:1px solid var(--border);white-space:nowrap}
+.a-cat.active{background:var(--gold);color:#000;border-color:var(--gold)}
+
+/* LIST */
+.a-list{padding:16px 20px 100px;max-width:900px;margin:0 auto}
+.a-row{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:12px;transition:opacity .2s,box-shadow .2s}
+.a-row.dragging{opacity:.5;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.a-row.disabled{opacity:.45}
+.a-row.drag-over{border-color:var(--gold)}
+.a-handle{cursor:grab;color:var(--muted);font-size:20px;padding:0 4px;touch-action:none;flex-shrink:0}
+.a-handle:active{cursor:grabbing}
+.a-img{width:50px;height:50px;border-radius:8px;object-fit:cover;background:var(--subtle);flex-shrink:0}
+.a-info{flex:1;min-width:0}
+.a-name{font-size:14px;font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.a-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;text-transform:uppercase}
+.a-badge.hit{background:var(--red);color:#fff}
+.a-badge.new{background:var(--green);color:#fff}
+.a-meta{font-size:12px;color:var(--muted)}
+.a-controls{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.a-price-inp{width:80px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text);font-size:13px;text-align:center;outline:none}
+.a-price-inp:focus{border-color:var(--gold)}
+.a-edit{background:var(--surface);border:1px solid var(--border);color:var(--muted);width:36px;height:36px;border-radius:8px;font-size:15px}
+/* toggle switch */
+.a-switch{position:relative;width:46px;height:26px;flex-shrink:0}
+.a-switch input{display:none}
+.a-slider{position:absolute;inset:0;background:var(--subtle);border-radius:26px;transition:.2s;cursor:pointer}
+.a-slider:before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.a-switch input:checked + .a-slider{background:var(--green)}
+.a-switch input:checked + .a-slider:before{transform:translateX(20px)}
+
+/* EDIT MODAL */
+.modal-bg{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:20px}
+.modal-bg.open{display:flex}
+.modal{background:var(--surface);border-radius:16px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;padding:24px}
+.modal h3{font-family:"Unbounded",sans-serif;font-size:16px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
+.modal h3 button{background:var(--card);color:var(--muted);width:32px;height:32px;border-radius:50%;font-size:15px}
+.m-field{margin-bottom:14px}
+.m-field label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px}
+.m-field input,.m-field textarea,.m-field select{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;outline:none;resize:vertical}
+.m-field input:focus,.m-field textarea:focus{border-color:var(--gold)}
+.m-seg{display:flex;gap:8px}
+.m-seg button{flex:1;padding:10px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-weight:600}
+.m-seg button.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.m-save{width:100%;background:var(--gold);color:#000;font-weight:700;padding:14px;border-radius:10px;font-size:14px;margin-top:6px}
+.a-hint{color:var(--muted);font-size:12px;padding:10px 20px;max-width:900px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<!-- PIN GATE -->
+<div class="gate" id="gate">
+  <div class="gate-logo">СУШИ <span>ШТОРМ</span></div>
+  <div class="gate-sub">Админ-панель · введите PIN</div>
+  <div class="pin-display" id="pinDisplay"></div>
+  <div class="gate-err" id="gateErr"></div>
+  <div class="pin-pad" id="pinPad"></div>
+</div>
+
+<!-- HEADER -->
+<div class="a-head">
+  <div class="a-logo">СУШИ <span>ШТОРМ</span> · Админ</div>
+  <div class="a-head-actions">
+    <input class="a-search" id="aSearch" placeholder="🔍 Поиск блюда..." oninput="renderList()">
+    <button class="a-btn" onclick="location.href='/kiosk.html'">← Киоск</button>
+    <button class="a-btn danger" onclick="resetAll()">Сбросить всё</button>
+  </div>
+</div>
+
+<div class="a-cats" id="aCats"></div>
+<div class="a-hint">Перетаскивайте блюда за значок ⠿ для смены порядка. Переключатель справа — показать/скрыть блюдо для гостей. Изменения сохраняются на этом устройстве.</div>
+<div class="a-list" id="aList"></div>
+
+<!-- SAVE BAR -->
+<div class="save-bar" id="saveBar">
+  <span id="saveText">Есть несохранённые изменения</span>
+  <button class="a-btn gold" onclick="saveAll()">Сохранить</button>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-bg" id="editModal">
+  <div class="modal" id="editContent"></div>
+</div>
+
+<script src="menu.js"></script>
+<script>
+// ═══ Админ-панель киоска ═══
+// PIN: 6 цифр. Смени на свой!
+const ADMIN_PIN = '482913';
+
+// ─── localStorage ключи ───
+// overrides: { [id]: {price, badge, desc, off:true/false} }
+// order: [id, id, id, ...]  порядок
+const K_OVR = 'ss_admin_overrides';
+const K_ORD = 'ss_admin_order';
+
+let overrides = JSON.parse(localStorage.getItem(K_OVR) || '{}');
+let order = JSON.parse(localStorage.getItem(K_ORD) || 'null');
+let dirty = false;
+let curCat = 'all';
+let editingId = null;
+
+const CATS = [
+  ['all','Все'],['sets','Сеты'],['rolls','Роллы'],['baked','Запечённые'],
+  ['tempura','Темпурные'],['mini','Мини'],['sushi','Суши'],['pizza','Пицца'],
+  ['salads','Салаты'],['hot','Горячее'],['soupmussels','Супы/мидии'],
+  ['desserts','Десерты'],['drinks','Напитки'],['sauces','Соусы']
+];
+
+function getMenu(){ return (window.MENU && window.MENU.length) ? window.MENU : []; }
+function esc(s){return String(s==null?'':s).split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;');}
+
+// ─── PIN GATE ───
+let pinEntry = '';
+function buildPad(){
+  const pad = document.getElementById('pinPad');
+  const keys = ['1','2','3','4','5','6','7','8','9','⌫','0','OK'];
+  pad.innerHTML = keys.map(k=>{
+    if(k==='⌫'||k==='OK') return `<button class="pin-key wide" onclick="pinKey('${k}')">${k}</button>`;
+    return `<button class="pin-key" onclick="pinKey('${k}')">${k}</button>`;
+  }).join('');
+  renderPinDots();
+}
+function renderPinDots(){
+  const d = document.getElementById('pinDisplay');
+  let dots='';
+  for(let i=0;i<6;i++) dots += `<div class="pin-dot ${i<pinEntry.length?'filled':''}"></div>`;
+  d.innerHTML = dots;
+}
+function pinKey(k){
+  if(k==='⌫'){ pinEntry = pinEntry.slice(0,-1); }
+  else if(k==='OK'){ checkPin(); return; }
+  else if(pinEntry.length<6){ pinEntry += k; }
+  renderPinDots();
+  if(pinEntry.length===6) setTimeout(checkPin, 150);
+}
+function checkPin(){
+  if(pinEntry === ADMIN_PIN){
+    sessionStorage.setItem('admin_ok','1');
+    document.getElementById('gate').classList.add('hidden');
+    initAdmin();
+  } else {
+    document.getElementById('gateErr').textContent = 'Неверный PIN';
+    pinEntry=''; renderPinDots();
+    setTimeout(()=>{document.getElementById('gateErr').textContent='';}, 1500);
+  }
+}
+
+// ─── СПИСОК ───
+function orderedMenu(){
+  const menu = getMenu().slice();
+  if(order && order.length){
+    const map = {};
+    menu.forEach(d=>map[d.id]=d);
+    const sorted = [];
+    order.forEach(id=>{ if(map[id]){ sorted.push(map[id]); delete map[id]; } });
+    // блюда, которых нет в сохранённом порядке (новые) — в конец
+    menu.forEach(d=>{ if(map[d.id]) sorted.push(d); });
+    return sorted;
+  }
+  return menu;
+}
+
+function renderCats(){
+  document.getElementById('aCats').innerHTML = CATS.map(([id,label])=>
+    `<button class="a-cat ${id===curCat?'active':''}" onclick="setCat('${id}')">${label}</button>`
+  ).join('');
+}
+function setCat(c){ curCat=c; renderCats(); renderList(); }
+
+function renderList(){
+  const q = (document.getElementById('aSearch').value||'').toLowerCase().trim();
+  let list = orderedMenu();
+  if(curCat!=='all') list = list.filter(d=>d.cat===curCat);
+  if(q) list = list.filter(d=>d.name.toLowerCase().includes(q));
+
+  const cont = document.getElementById('aList');
+  if(!list.length){ cont.innerHTML='<p style="color:var(--muted);text-align:center;padding:30px">Ничего не найдено</p>'; return; }
+
+  // перетаскивание разрешено только без поиска и в конкретной категории или "все"
+  const canDrag = !q;
+
+  cont.innerHTML = list.map(d=>{
+    const ovr = overrides[d.id] || {};
+    const price = ovr.price != null ? ovr.price : d.price;
+    const badge = ovr.badge !== undefined ? ovr.badge : (d.badge||'');
+    const off = !!ovr.off;
+    return `
+    <div class="a-row ${off?'disabled':''}" data-id="${d.id}" draggable="${canDrag}">
+      ${canDrag?`<div class="a-handle" data-id="${d.id}">⠿</div>`:'<div class="a-handle" style="opacity:.2">⠿</div>'}
+      <img class="a-img" src="${d.img}" onerror="this.style.visibility='hidden'">
+      <div class="a-info">
+        <div class="a-name">${esc(d.name)} ${badge?`<span class="a-badge ${badge}">${badge==='hit'?'Хит':'Новинка'}</span>`:''}</div>
+        <div class="a-meta">${CATS.find(c=>c[0]===d.cat)?.[1]||d.cat} · арт. ${d.article||'—'}</div>
+      </div>
+      <div class="a-controls">
+        <input class="a-price-inp" type="number" value="${price}" onchange="setPrice(${d.id}, this.value)" title="Цена">
+        <button class="a-edit" onclick="openEdit(${d.id})" title="Редактировать">✏️</button>
+        <label class="a-switch" title="Показывать гостям">
+          <input type="checkbox" ${off?'':'checked'} onchange="toggleOff(${d.id}, !this.checked)">
+          <span class="a-slider"></span>
+        </label>
+      </div>
+    </div>`;
+  }).join('');
+
+  if(canDrag) attachDrag();
+}
+
+// ─── DRAG & DROP (мышь + тач) ───
+let dragId = null;
+// Авто-прокрутка страницы, когда палец с перетаскиваемой строкой у края экрана
+let _autoDir = 0, _autoTimer = null, _lastTX = 0, _lastTY = 0;
+function _updateDragOver(){
+  var el = document.elementFromPoint(_lastTX, _lastTY);
+  var row = el && el.closest ? el.closest('.a-row') : null;
+  document.querySelectorAll('.a-row').forEach(function(r){ r.classList.remove('drag-over'); });
+  if(row && +row.dataset.id !== dragId) row.classList.add('drag-over');
+}
+function _startAuto(){
+  if(_autoTimer) return;
+  _autoTimer = setInterval(function(){
+    if(!_autoDir || dragId==null){ _stopAuto(); return; }
+    window.scrollBy(0, _autoDir * 16);
+    _updateDragOver();
+  }, 16);
+}
+function _stopAuto(){ if(_autoTimer){ clearInterval(_autoTimer); _autoTimer = null; } _autoDir = 0; }
+function attachDrag(){
+  const rows = document.querySelectorAll('.a-row');
+  rows.forEach(row=>{
+    row.addEventListener('dragstart', e=>{
+      dragId = +row.dataset.id;
+      row.classList.add('dragging');
+    });
+    row.addEventListener('dragend', e=>{
+      row.classList.remove('dragging');
+      document.querySelectorAll('.a-row').forEach(r=>r.classList.remove('drag-over'));
+    });
+    row.addEventListener('dragover', e=>{
+      e.preventDefault();
+      row.classList.add('drag-over');
+    });
+    row.addEventListener('dragleave', e=>{ row.classList.remove('drag-over'); });
+    row.addEventListener('drop', e=>{
+      e.preventDefault();
+      row.classList.remove('drag-over');
+      const targetId = +row.dataset.id;
+      reorder(dragId, targetId);
+    });
+  });
+  // touch для планшета
+  attachTouchDrag();
+}
+
+function attachTouchDrag(){
+  const handles = document.querySelectorAll('.a-handle[data-id]');
+  handles.forEach(h=>{
+    h.addEventListener('touchstart', function(e){
+      dragId = +h.dataset.id;
+      const row = h.closest('.a-row');
+      row.classList.add('dragging');
+      e.preventDefault();
+    }, {passive:false});
+  });
+  const list = document.getElementById('aList');
+  list.addEventListener('touchmove', function(e){
+    if(dragId==null) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    const row = el && el.closest ? el.closest('.a-row') : null;
+    document.querySelectorAll('.a-row').forEach(r=>r.classList.remove('drag-over'));
+    if(row && +row.dataset.id !== dragId) row.classList.add('drag-over');
+    // у края экрana — прокручиваем дальше, чтобы дотащить в самый верх/низ
+    _lastTX = t.clientX; _lastTY = t.clientY;
+    var EDGE = 90;
+    if(t.clientY < EDGE) _autoDir = -1;
+    else if(t.clientY > window.innerHeight - EDGE) _autoDir = 1;
+    else _autoDir = 0;
+    if(_autoDir) _startAuto(); else _stopAuto();
+  }, {passive:false});
+  list.addEventListener('touchend', function(e){
+    _stopAuto();
+    if(dragId==null) return;
+    const over = document.querySelector('.a-row.drag-over');
+    if(over) reorder(dragId, +over.dataset.id);
+    document.querySelectorAll('.a-row').forEach(r=>{r.classList.remove('dragging');r.classList.remove('drag-over');});
+    dragId = null;
+  });
+}
+
+function reorder(fromId, toId){
+  if(fromId===toId) return;
+  // строим полный порядок на основе текущего отображаемого
+  let full = orderedMenu().map(d=>d.id);
+  const fi = full.indexOf(fromId);
+  const ti = full.indexOf(toId);
+  if(fi<0||ti<0) return;
+  full.splice(fi,1);
+  const ni = full.indexOf(toId);
+  full.splice(ni,0,fromId);
+  order = full;
+  markDirty();
+  renderList();
+}
+
+// ─── ИЗМЕНЕНИЯ ───
+function setPrice(id, val){
+  const v = parseInt(val,10);
+  if(isNaN(v)||v<0) return;
+  overrides[id] = overrides[id]||{};
+  overrides[id].price = v;
+  markDirty();
+}
+function toggleOff(id, off){
+  overrides[id] = overrides[id]||{};
+  overrides[id].off = off;
+  markDirty();
+  renderList();
+}
+function openEdit(id){
+  editingId = id;
+  const d = getMenu().find(x=>x.id===id);
+  const ovr = overrides[id]||{};
+  const price = ovr.price!=null?ovr.price:d.price;
+  const badge = ovr.badge!==undefined?ovr.badge:(d.badge||'');
+  const desc = ovr.desc!==undefined?ovr.desc:(d.desc||'');
+  document.getElementById('editContent').innerHTML = `
+    <h3>Редактировать <button onclick="closeEdit()">✕</button></h3>
+    <div class="m-field"><label>Название</label><input id="e-name" value="${esc(d.name)}" disabled style="opacity:.6"></div>
+    <div class="m-field"><label>Цена, ₽</label><input id="e-price" type="number" value="${price}"></div>
+    <div class="m-field"><label>Бейдж</label>
+      <div class="m-seg">
+        <button class="${!badge?'active':''}" onclick="pickBadge('')">Нет</button>
+        <button class="${badge==='hit'?'active':''}" onclick="pickBadge('hit')">🔥 Хит</button>
+        <button class="${badge==='new'?'active':''}" onclick="pickBadge('new')">✨ Новинка</button>
+      </div>
+    </div>
+    <div class="m-field"><label>Состав</label><textarea id="e-desc" rows="3">${esc(desc)}</textarea></div>
+    <button class="m-save" onclick="saveEdit()">Применить</button>
+  `;
+  document.getElementById('editModal').classList.add('open');
+}
+let _pickedBadge=null;
+function pickBadge(b){
+  _pickedBadge=b;
+  document.querySelectorAll('#editContent .m-seg button').forEach(btn=>btn.classList.remove('active'));
+  event.target.classList.add('active');
+}
+function saveEdit(){
+  const id = editingId;
+  const price = parseInt(document.getElementById('e-price').value,10);
+  const desc = document.getElementById('e-desc').value.trim();
+  overrides[id] = overrides[id]||{};
+  if(!isNaN(price)) overrides[id].price = price;
+  if(_pickedBadge!==null) overrides[id].badge = _pickedBadge;
+  overrides[id].desc = desc;
+  _pickedBadge=null;
+  markDirty();
+  closeEdit();
+  renderList();
+}
+function closeEdit(){ document.getElementById('editModal').classList.remove('open'); editingId=null; _pickedBadge=null; }
+
+// ─── СОХРАНЕНИЕ ───
+function markDirty(){ dirty=true; document.getElementById('saveBar').classList.add('show'); }
+function saveAll(){
+  localStorage.setItem(K_OVR, JSON.stringify(overrides));
+  localStorage.setItem(K_ORD, JSON.stringify(order||[]));
+  dirty=false;
+  document.getElementById('saveText').textContent = '✅ Сохранено! Изменения видны в киоске.';
+  setTimeout(()=>{ document.getElementById('saveBar').classList.remove('show'); document.getElementById('saveText').textContent='Есть несохранённые изменения'; }, 2000);
+}
+function resetAll(){
+  if(confirm('Сбросить ВСЕ изменения (порядок, цены, скрытые блюда)? Меню вернётся к исходному.')){
+    localStorage.removeItem(K_OVR);
+    localStorage.removeItem(K_ORD);
+    overrides={}; order=null; dirty=false;
+    document.getElementById('saveBar').classList.remove('show');
+    renderList();
+  }
+}
+
+function initAdmin(){
+  renderCats();
+  if(getMenu().length){ renderList(); }
+  else {
+    let tries=0;
+    const t=setInterval(()=>{
+      tries++;
+      if(getMenu().length){ clearInterval(t); renderList(); }
+      else if(tries>40){ clearInterval(t); document.getElementById('aList').innerHTML='<p style="color:var(--muted);text-align:center;padding:30px">Меню не загрузилось</p>'; }
+    },100);
+  }
+}
+
+// init
+buildPad();
+if(sessionStorage.getItem('admin_ok')==='1'){
+  document.getElementById('gate').classList.add('hidden');
+  initAdmin();
+}
+window.addEventListener('beforeunload', e=>{ if(dirty){ e.preventDefault(); e.returnValue=''; } });
+</script>
+</body>
+</html>
