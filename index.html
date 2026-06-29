@@ -1512,6 +1512,20 @@ function repeatOrder(itemIds) {
   openCartModal();
 }
 
+// Экран ошибки оформления (используется и при оплате при получении, и при онлайн-оплате)
+function showOrderError(msg) {
+  document.getElementById('modalTitle').textContent = '⚠️ Заказ не оформлен';
+  document.getElementById('modalContent').innerHTML =
+    '<div style="text-align:center;padding:16px 0">' +
+      '<div style="font-size:52px;margin-bottom:12px">😔</div>' +
+      '<div style="font-family:\'Unbounded\',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px">Заказ не оформлен</div>' +
+      '<div style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:10px">' + esc(msg || 'Попробуйте ещё раз.') + '</div>' +
+      '<div style="color:var(--muted);font-size:13px;line-height:1.7">Корзина сохранена. Повторите попытку или позвоните нам: <a href="tel:89298541144" style="color:var(--gold)">8 (929) 854-11-44</a></div>' +
+      '<button class="submit-btn" style="margin-top:20px" onclick="submitOrder()">↻ Повторить</button>' +
+      '<button class="submit-btn" style="margin-top:10px;background:transparent;border:1px solid var(--border);color:var(--muted)" onclick="showOrderForm()">← Изменить данные</button>' +
+    '</div>';
+}
+
 // Обновлённый submitOrder: режим, приборы, предзаказ, отправка во ФронтПад
 const _origSubmit = submitOrder;
 submitOrder = async function() {
@@ -1559,7 +1573,64 @@ submitOrder = async function() {
   parts.push('Оплата: ' + payText);
   parts.push((SERVICE_FEE > 0 ? 'Сервисный сбор ' + SERVICE_FEE + ' ₽. ' : '') + 'Сумма по сайту: ' + total + ' ₽');
 
-  // ── Отправка во ФронтПад ──
+  // ════════════════════════════════════════════════════════════
+  // ОНЛАЙН-ОПЛАТА: заказ во ФронтПад уходит ТОЛЬКО после оплаты.
+  // ════════════════════════════════════════════════════════════
+  if (window._pay === 'card') {
+    if (btn) { btn.textContent = 'Готовим оплату...'; }
+
+    // 1) Откладываем заказ (в кассу пока НЕ отправляем)
+    let pendingId = null, perr = '';
+    try {
+      const r = await fetch('/api/pending-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, phone,
+          street: mode === 'pickup' ? 'Самовывоз (Октябрьская 5)' : addr,
+          pod: entry, et: floor,
+          descr: parts.join('. '),
+          total: total,
+          histItems: cart.map(c => ({ id: c.id, name: c.name, qty: c.qty })),
+          items: cart.map(c => ({ article: c.article, qty: c.qty }))
+        })
+      });
+      const d = await r.json().catch(function(){ return {}; });
+      if (r.ok && d.ok && d.order_id) pendingId = d.order_id;
+      else perr = (d && d.error) ? String(d.error) : 'Не удалось подготовить заказ. Попробуйте ещё раз.';
+    } catch(e) { perr = 'Нет связи с сервером. Попробуйте ещё раз.'; }
+
+    if (!pendingId) { showOrderError(perr); return; }
+
+    // 2) Запускаем оплату → редирект на Т-Банк
+    let payErr = '';
+    try {
+      const pr = await fetch('/api/payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: total,
+          order_id: String(pendingId),
+          description: 'Заказ Суши Шторм',
+          items: cart.map(c => ({ id: c.id, qty: c.qty })),
+          phone: phone,
+          email: (currentUser && currentUser.email) ? currentUser.email : '',
+          return_url: location.origin + '/?paid=' + encodeURIComponent(String(pendingId))
+        })
+      });
+      const pd = await pr.json().catch(function(){ return {}; });
+      if (pd && pd.ok && pd.url) { window.location.href = pd.url; return; }
+      payErr = (pd && pd.error === 'not_configured')
+        ? 'Онлайн-оплата временно недоступна. Выберите «оплата при получении».'
+        : 'Не удалось начать оплату. Попробуйте ещё раз или выберите «оплата при получении».';
+    } catch(e) { payErr = 'Не удалось начать оплату. Попробуйте ещё раз.'; }
+    showOrderError(payErr);
+    return;
+  }
+
+  // ════════════════════════════════════════════════════════════
+  // ОПЛАТА ПРИ ПОЛУЧЕНИИ: заказ во ФронтПад сразу.
+  // ════════════════════════════════════════════════════════════
   let ordNum = null;
   let errMsg = '';
   try {
@@ -1577,62 +1648,15 @@ submitOrder = async function() {
       })
     });
     const data = await r.json().catch(function(){ return {}; });
-    if (r.ok && data.ok) {
-      ordNum = data.order_number;
-    } else {
-      errMsg = (data && data.error) ? String(data.error) : 'Не удалось оформить заказ. Попробуйте ещё раз.';
-    }
+    if (r.ok && data.ok) { ordNum = data.order_number; }
+    else { errMsg = (data && data.error) ? String(data.error) : 'Не удалось оформить заказ. Попробуйте ещё раз.'; }
   } catch(e) {
     errMsg = 'Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.';
   }
 
-  // ── Заказ НЕ оформлен: ошибка + повтор, корзину сохраняем, оплату не запускаем ──
-  if (!ordNum) {
-    document.getElementById('modalTitle').textContent = '⚠️ Заказ не оформлен';
-    document.getElementById('modalContent').innerHTML = `
-      <div style="text-align:center;padding:16px 0">
-        <div style="font-size:52px;margin-bottom:12px">😔</div>
-        <div style="font-family:'Unbounded',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px">Заказ не оформлен</div>
-        <div style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:10px">${esc(errMsg)}</div>
-        <div style="color:var(--muted);font-size:13px;line-height:1.7">Корзина сохранена. Повторите попытку или позвоните нам: <a href="tel:89298541144" style="color:var(--gold)">8 (929) 854-11-44</a></div>
-        <button class="submit-btn" style="margin-top:20px" onclick="submitOrder()">↻ Повторить заказ</button>
-        <button class="submit-btn" style="margin-top:10px;background:transparent;border:1px solid var(--border);color:var(--muted)" onclick="showOrderForm()">← Изменить данные</button>
-      </div>
-    `;
-    return;
-  }
+  if (!ordNum) { showOrderError(errMsg); return; }
 
-  // ── Заказ принят: сервер уже записал его в историю по cookie — перечитываем профиль ──
   if (currentUser) { await refreshSession(); }
-
-  // ── Онлайн-оплата картой (ЮKassa) ──
-  // Если эквайринг подключён (заданы ключи на сервере) — уводим на оплату.
-  // Если ещё не подключён — заказ уже принят, мягко откатываемся на оплату при получении.
-  window._payNote = '';
-  if (window._pay === 'card') {
-    try {
-      const pr = await fetch('/api/payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount: total,
-          order_id: String(ordNum),
-          description: 'Заказ № ' + ordNum + ' — Суши Шторм',
-          items: cart.map(c => ({ id: c.id, qty: c.qty })),
-          phone: phone,
-          email: (currentUser && currentUser.email) ? currentUser.email : '',
-          return_url: location.origin + '/?paid=' + encodeURIComponent(String(ordNum))
-        })
-      });
-      const pd = await pr.json().catch(function(){ return {}; });
-      if (pd && pd.ok && pd.url) { window.location.href = pd.url; return; }
-      window._payNote = (pd && pd.error === 'not_configured')
-        ? 'Онлайн-оплата скоро будет доступна — пока оплатите при получении.'
-        : 'Не удалось начать онлайн-оплату. Оплатите при получении или продублируйте по телефону.';
-    } catch (e) {
-      window._payNote = 'Не удалось начать онлайн-оплату. Оплатите при получении.';
-    }
-  }
 
   const waitLine = mode === 'pickup'
     ? 'Заберите заказ: Кабардинка, Октябрьская 5 🥡'
@@ -1649,7 +1673,6 @@ submitOrder = async function() {
         Перезвоним на <b>${esc(phone)}</b> в течение 5 минут.<br>
         ${waitLine}${preorder ? '<br>⏰ К ' + esc(preorder) : ''}
       </div>
-      ${window._payNote ? `<div style="margin-top:14px;background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.25);border-radius:8px;padding:12px;font-size:12px;color:var(--muted)">💳 ${esc(window._payNote)}</div>` : ''}
       <button class="submit-btn" style="margin-top:20px" onclick="closeModal()">Отлично!</button>
     </div>
   `;
@@ -1716,9 +1739,9 @@ loadServerMenu();
     if (history.replaceState) history.replaceState({}, '', location.pathname);
     setTimeout(function(){
       if (paid) {
-        alert('Спасибо! Оплата заказа № ' + paid + ' обрабатывается. Если оплата прошла — заказ уже готовится. Чек придёт на телефон или почту.');
+        alert('Оплата прошла! Заказ оформляется, мы перезвоним для подтверждения. Чек придёт на телефон или почту.');
       } else {
-        alert('Оплата заказа № ' + failed + ' не завершена. Заказ принят — можно оплатить при получении или позвонить нам: 8 (929) 854-11-44.');
+        alert('Оплата не завершена — заказ НЕ оформлен. Попробуйте оформить снова или выберите оплату при получении. Телефон: 8 (929) 854-11-44.');
       }
     }, 300);
   } catch(e){}
