@@ -885,7 +885,7 @@ function renderCartContent() {
     <div class="cart-total">
       <div class="cart-total-row"><span>Сумма</span><span>${sub} ₽</span></div>
       <div class="cart-total-row"><span>Доставка</span><span>${deliv===0?'<span style="color:#4caf50">Бесплатно</span>':deliv+' ₽'}</span></div>
-      <div class="cart-total-row"><span>Сервисный сбор</span><span>${SERVICE_FEE} ₽</span></div>
+      <div class="cart-total-row"><span>Сервисный сбор <span style="font-size:11px;color:var(--muted)">(при доставке)</span></span><span>${SERVICE_FEE} ₽</span></div>
       <div class="cart-total-row big"><span>Итого</span><span>${total} ₽</span></div>
     </div>
     ${!isOpenNow()
@@ -1535,7 +1535,7 @@ submitOrder = async function() {
   if (_consentEl ? !_consentEl.checked : !window._consentOk) { alert('Необходимо согласие на обработку персональных данных'); return; }
   window._consentOk = true;
 
-  const SERVICE_FEE = 49;
+  const SERVICE_FEE = mode === 'pickup' ? 0 : 49;
   const deliv = mode === 'pickup' ? 0 : (sub >= FREE_DELIVERY ? 0 : DELIVERY_FEE);
   const total = sub + deliv + SERVICE_FEE;
 
@@ -1556,7 +1556,7 @@ submitOrder = async function() {
   if (preorder) parts.push('⏰ Предзаказ к ' + preorder);
   if (comment) parts.push('Коммент: ' + comment);
   parts.push('Оплата: ' + payText);
-  parts.push('Сервисный сбор 49 ₽. Сумма по сайту: ' + total + ' ₽');
+  parts.push((SERVICE_FEE > 0 ? 'Сервисный сбор ' + SERVICE_FEE + ' ₽. ' : '') + 'Сумма по сайту: ' + total + ' ₽');
 
   // ── Отправка во ФронтПад ──
   let ordNum = null;
