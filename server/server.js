@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import menuRouter from './routes/menu.js';
 import authRouter from './routes/auth.js';
 import orderHandler from './routes/order.js';
+import pendingOrderHandler from './routes/pending-order.js';
 import paymentHandler from './routes/payment.js';
 import paymentWebhookHandler from './routes/payment-webhook.js';
 import chatHandler from './routes/chat.js';
@@ -30,6 +31,7 @@ app.use(express.json({ limit: '1mb' }));
 app.use('/api', authRouter);                // /api/auth/*, /api/account/*
 app.use('/api/menu', menuRouter);           // GET + PATCH
 app.post('/api/order', orderHandler);
+app.post('/api/pending-order', pendingOrderHandler);
 app.post('/api/payment', paymentHandler);
 app.post('/api/payment-webhook', paymentWebhookHandler);
 app.post('/api/chat', chatHandler);

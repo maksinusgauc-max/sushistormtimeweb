@@ -56,3 +56,26 @@ export async function recordUserOrder(req, order) {
   );
   return true;
 }
+
+// Записать заказ в историю по явному user_id (для вебхука — там нет cookie).
+export async function recordOrderForUser(userId, order) {
+  if (!userId) return false;
+  const hist = Array.isArray(order.histItems) ? order.histItems.slice(0, 100) : [];
+  const itemsText = hist.map(function (h) { return h.name; }).filter(Boolean).join(', ').slice(0, 1000);
+  const itemsJson = hist.map(function (h) {
+    return { id: parseInt(h.id, 10) || 0, qty: Math.max(1, Math.min(99, parseInt(h.qty, 10) || 1)) };
+  });
+  await pool.query(
+    'insert into user_orders (user_id, order_num, total, items_text, items_json, status) ' +
+    'values ($1,$2,$3,$4,$5,$6)',
+    [
+      userId,
+      String(order.num || '').slice(0, 40),
+      Math.max(0, parseInt(order.total, 10) || 0),
+      itemsText,
+      JSON.stringify(itemsJson),
+      String(order.status || 'Оплачен').slice(0, 40),
+    ]
+  );
+  return true;
+}
