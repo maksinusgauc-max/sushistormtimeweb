@@ -1,10 +1,12 @@
 // ═══════════════════════════════════════════════════════════
-// Приём заказа с сайта → ФронтПад. Путь: server/routes/order.js
-// Секрет в переменной окружения: FRONTPAD_SECRET.
+// Приём заказа → ФронтПад. Путь: server/routes/order.js
+// Используется для оплаты ПРИ ПОЛУЧЕНИИ и для киоска — заказ уходит
+// в кассу сразу. Онлайн-оплата идёт через /api/pending-order + вебхук.
 // ═══════════════════════════════════════════════════════════
 
 import { rateLimit } from '../ratelimit.js';
 import { recordUserOrder } from '../session.js';
+import { submitToFrontpad } from '../frontpad.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -17,10 +19,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { source, bare, name, phone, street, home, apart, pod, et, descr, items } = req.body || {};
+    const { source, name, phone, street, home, apart, pod, et, descr, items } = req.body || {};
     const isKiosk = source === 'kiosk';
 
-    // ── Rate-limit: только для заказов с сайта, киоск пропускаем ──
     if (!isKiosk) {
       const fwd = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'unknown';
       const ip = String(fwd).split(',')[0].trim();
@@ -29,7 +30,6 @@ export default async function handler(req, res) {
       }
     }
 
-    // ── Валидация на сервере (браузеру не доверяем) ──
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: 'Корзина пуста' });
     }
@@ -47,41 +47,14 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Некорректный телефон' });
     }
 
-    // ── Собираем запрос к ФронтПаду ──
-    const params = new URLSearchParams();
-    params.append('secret', SECRET);
+    const result = await submitToFrontpad({ name, phone, street, home, apart, pod, et, descr, items });
 
-    items.forEach(function (it, i) {
-      params.append('product[' + i + ']', String(it.article));
-      const qty = Math.max(1, Math.min(99, parseInt(it.qty) || 1));
-      params.append('product_kol[' + i + ']', String(qty));
-    });
-
-    if (name)   params.append('name',   String(name).slice(0, 100));
-    if (phone)  params.append('phone',  String(phone).slice(0, 20));
-    if (street) params.append('street', String(street).slice(0, 150));
-    if (home)  params.append('home',  String(home).slice(0, 20));
-    if (apart) params.append('apart', String(apart).slice(0, 20));
-    if (pod)   params.append('pod',   String(pod).slice(0, 10));
-    if (et)    params.append('et',    String(et).slice(0, 10));
-    if (descr) params.append('descr', String(descr).slice(0, 500));
-
-    const fpResponse = await fetch('https://app.frontpad.ru/api/index.php?new_order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString(),
-    });
-
-    const data = await fpResponse.json();
-
-    if (data.result === 'success') {
-      const ordNum = data.order_number || data.order_id;
-      // Запись в историю клиента — только если ФронтПад принял заказ.
-      // Best-effort: ошибка записи не должна валить успешный заказ.
+    if (result.ok) {
+      // Запись в историю клиента (если авторизован) — оплата при получении.
       if (!isKiosk) {
         try {
           await recordUserOrder(req, {
-            num: ordNum,
+            num: result.order_number,
             total: req.body && req.body.total,
             histItems: req.body && req.body.histItems,
             status: 'Принят',
@@ -90,14 +63,10 @@ export default async function handler(req, res) {
           console.error('history record error:', e);
         }
       }
-      return res.status(200).json({ ok: true, order_number: ordNum });
+      return res.status(200).json({ ok: true, order_number: result.order_number });
     }
 
-    console.error('FrontPad error:', data);
-    return res.status(502).json({
-      error: 'ФронтПад отклонил заказ',
-      detail: data.error || 'unknown',
-    });
+    return res.status(502).json({ error: 'ФронтПад отклонил заказ', detail: result.error || 'unknown' });
   } catch (e) {
     console.error('Order handler error:', e);
     return res.status(500).json({ error: 'Ошибка сервера, попробуйте позвонить: 8 (929) 854-11-44' });
