@@ -110,7 +110,7 @@ async function enter(){
   try{
     var r = await fetch('/api/admin-login', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ login:'admin', pass: pass })
+      body: JSON.stringify({ login:'kiosk', pass: pass })
     });
     var d = await r.json().catch(function(){ return {}; });
     if(d && d.ok){
