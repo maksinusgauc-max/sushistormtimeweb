@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /kiosk.html
+Disallow: /admin.html
+Disallow: /site-admin.html
+Disallow: /api/
+
+Sitemap: https://sushistormkabardinka.ru/sitemap.xml
